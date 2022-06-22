@@ -1,6 +1,6 @@
 {
-    "name": "demo",
-    "short_name": "demo",
+    "name": "book_hook",
+    "short_name": "book_hook",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

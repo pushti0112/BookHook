@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.demo">
+    package="com.example.book_hook">
    <application
-        android:label="demo"
+        android:label="book_hook"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
