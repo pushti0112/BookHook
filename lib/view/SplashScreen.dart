@@ -2,6 +2,7 @@
 
 import 'package:book_hook/global/AppColors.dart';
 import 'package:book_hook/view/LoginScreen.dart';
+import 'package:book_hook/view/ProfilePage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -23,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(Duration(seconds: 3), () {
       if (!login) {
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => LoginScreen()));
+            context, MaterialPageRoute(builder: (context) => ProfilePage()));
       }
     });
   }
