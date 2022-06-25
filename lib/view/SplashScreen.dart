@@ -2,6 +2,7 @@
 
 import 'package:book_hook/global/AppColors.dart';
 import 'package:book_hook/view/LoginScreen.dart';
+import 'package:book_hook/view/RegisterScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';

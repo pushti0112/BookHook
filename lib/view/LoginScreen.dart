@@ -5,6 +5,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../global/AppColors.dart';
+import 'RegisterScreen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -158,6 +159,34 @@ class _LoginScreenState extends State<LoginScreen> {
                           side: BorderSide(color: Colors.black45, width: 0.5),
                         ),
                         onPressed: () => {}),
+                    SizedBox(
+                      height: 16,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      // ignore: prefer_const_literals_to_create_immutables
+                      children: [
+                        Text(
+                          "Don't have an account?",
+                          style: TextStyle(
+                            color: Colors.black54,
+                          ),
+                        ),
+                        TextButton(
+                          // ignore: sort_child_properties_last
+                          child: Text(
+                            "Register Now",
+                            style: TextStyle(color: AppColors.primary),
+                          ),
+                          onPressed: () async {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => RegisterScreen()));
+                          },
+                        ),
+                      ],
+                    )
                   ],
                 ),
               ),
