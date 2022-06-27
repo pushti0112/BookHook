@@ -1,0 +1,7 @@
+{
+    "html.format.enable": false,
+    "json.format.enable": false,
+    "javascript.format.enable": false,
+    "dart.lineLength": 500,
+    "dart.enableSdkFormatter": false
+}

@@ -1,4 +1,5 @@
 // ignore_for_file: prefer_const_constructors
+import 'package:book_hook/controller/LoginSignupController.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -97,7 +98,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           style: ElevatedButton.styleFrom(
                               primary: AppColors.primary,
                               padding: EdgeInsets.all(16)),
-                          onPressed: () {},
+                          onPressed: () {
+                            LoginSignupController().isLogin(context);
+                          },
                         )),
                     SizedBox(
                       height: 24,
