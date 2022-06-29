@@ -16,13 +16,13 @@ class _LendABookPageState extends State<LendABookPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: Size.fromHeight(18.h),
+          preferredSize: Size.fromHeight(16.h),
           child: AppBar(
             backgroundColor: AppColors.primary,
             title: Text('Lend a Book'),
             centerTitle: true,
 
-            // Notifications icon
+// Notifications icon
             actions: const [
               Padding(
                 padding: EdgeInsets.all(10.0),
@@ -31,63 +31,73 @@ class _LendABookPageState extends State<LendABookPage> {
             ],
           )),
 
-      // Side pane button
+// Side pane button
       drawer: Drawer(
         child: ListView(
           children: [],
         ),
       ),
-      // Text Fields
+
+// Text Fields
       backgroundColor: Color.fromARGB(255, 241, 244, 253),
       body: Padding(
           padding:
               EdgeInsets.only(top: 5.h, left: 3.h, right: 3.h, bottom: 3.h),
           child: ListView(
             children: [
-              Text('Book Type', style: TextStyle(fontSize: 18)),
-              SizedBox(height: 10),
               TextField(
                 decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: Colors.white, width: 1.0)),
-                    fillColor: Colors.white,
-                    filled: true),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black45, width: 0.5),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black, width: 1),
+                  ),
+                  hintText: "Book Type",
+                ),
               ),
               SizedBox(height: 15),
-              Text('Book Title', style: TextStyle(fontSize: 18)),
-              SizedBox(height: 10),
+
+// Book Title text area
               TextField(
                 decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: Colors.white, width: 1.0)),
-                    fillColor: Colors.white,
-                    filled: true),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black45, width: 0.5),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black, width: 1),
+                  ),
+                  hintText: "Book Title",
+                ),
               ),
               SizedBox(height: 15),
-              Text('Description', style: TextStyle(fontSize: 18)),
-              SizedBox(height: 10),
+
+// Description text area
               TextField(
                 decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: Colors.white, width: 1.0)),
-                    fillColor: Colors.white,
-                    filled: true),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black45, width: 0.5),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black, width: 1),
+                  ),
+                  hintText: "Description",
+                ),
               ),
               SizedBox(height: 15),
+
+// File Upload icon
               Row(children: [
                 SizedBox.fromSize(
                   size: Size(6.h, 6.h),
                   child: ClipOval(
                       child: Material(
-                          color: Colors.white,
+                          color: AppColors.light3,
                           child: InkWell(
-                            splashColor: Colors.grey,
+                            // splashColor: AppColors.light3,
                             onTap: () {},
                             child: Icon(
-                              Icons.add,
+                              Icons.file_upload_outlined,
                               size: 5.h,
                               color: Colors.grey,
                             ),
@@ -96,21 +106,18 @@ class _LendABookPageState extends State<LendABookPage> {
                 SizedBox(width: 15),
                 Text('Upload a cover image'),
               ]),
-              // Button
+
+// Add Button
               Container(
-                margin: EdgeInsets.only(top: 20, left: 50, right: 50),
-                width: 1.h,
-                height: 5.h,
-                child: FlatButton(
-                  child: Text(
-                    'Add',
-                    style: TextStyle(fontSize: 18.0),
-                  ),
-                  color: AppColors.primary,
-                  textColor: Colors.white,
-                  onPressed: () {},
-                ),
-              ),
+                  margin: EdgeInsets.only(top: 20),
+                  width: double.maxFinite,
+                  child: ElevatedButton(
+                    child: Text("Add"),
+                    style: ElevatedButton.styleFrom(
+                        primary: AppColors.primary,
+                        padding: EdgeInsets.all(16)),
+                    onPressed: () {},
+                  )),
             ],
           )),
     );
