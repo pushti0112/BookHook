@@ -41,6 +41,10 @@ dev_dependencies:
   sizer: ^2.0.15
   flutter_svg: ^1.1.0
   http: ^0.13.4
+  provider: ^6.0.3
+  dependencies:
+  shared_preferences: ^2.0.15
+  cool_alert: ^1.1.0
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

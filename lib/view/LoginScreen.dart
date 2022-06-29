@@ -1,12 +1,17 @@
 // ignore_for_file: prefer_const_constructors
+import 'dart:convert';
+
 import 'package:book_hook/controller/LoginSignupController.dart';
+import 'package:book_hook/view/HomeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
+import 'package:provider/provider.dart';
 import '../global/AppColors.dart';
+import '../provider/UserProvider.dart';
 import 'RegisterScreen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -16,8 +21,16 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+
+  TextEditingController emailIdC = TextEditingController(text: "avp@gmail.com");
+  TextEditingController passC = TextEditingController(text: "abc2@2222U");
+  bool showPasswordText = false;
+ 
+
   @override
   Widget build(BuildContext context) {
+    UserProvider userProvider = Provider.of<UserProvider>(context, listen: false);
+   
     return Container(
       child: SafeArea(
           child: Scaffold(
@@ -69,11 +82,50 @@ class _LoginScreenState extends State<LoginScreen> {
                     SizedBox(
                       height: 24,
                     ),
-                    TextFormField("Username or Email Id"),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.grey[200],
+                        border: Border.all(color: Colors.white),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: TextField(
+                        controller: emailIdC ,
+                        decoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.black45, width: 0.5),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.black, width: 1),
+                          ),
+                          hintText: "Email Id",
+                        ),
+                      ),
+                    ),
                     SizedBox(
                       height: 8,
                     ),
-                    TextFormField("Password"),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.grey[200],
+                        border: Border.all(color: Colors.white),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: TextField(
+                        controller: passC ,
+                        obscureText: !showPasswordText,
+                        decoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.black45, width: 0.5),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.black, width: 1),
+                          ),
+                          hintText: "Password",
+                          suffixIcon: IconButton(icon: Icon(showPasswordText ? Icons.visibility_outlined : Icons.visibility_off_outlined, color: AppColors.dark3,), onPressed: () => setState(() => showPasswordText = !showPasswordText,),),
+                        ),
+                        onChanged: (str) => setState(() {}),
+                      ),
+                    ),
                     SizedBox(
                       height: 8,
                     ),
@@ -98,8 +150,25 @@ class _LoginScreenState extends State<LoginScreen> {
                           style: ElevatedButton.styleFrom(
                               primary: AppColors.primary,
                               padding: EdgeInsets.all(16)),
-                          onPressed: () {
-                            LoginSignupController().isLogin(context);
+                          onPressed: () async{
+                            userProvider.user = await LoginSignupController().getLoggedInUser(emailIdC.text,passC.text);
+                            userProvider.notifyListeners();
+                        
+                            print(userProvider.user?.Status ?? 0);
+                            if(userProvider.user!.Status==1)
+                            {
+                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+                            }
+                            else{
+                              final snackBar = SnackBar(
+                                duration: Duration(seconds: 3),
+                                behavior: SnackBarBehavior.floating,
+                                content: const Text('Invalid Credentials'),
+                                margin: EdgeInsets.symmetric(vertical: 16,horizontal: 8),
+                                backgroundColor: Colors.black87,
+                              );
+                              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                            }         
                           },
                         )),
                     SizedBox(
@@ -200,7 +269,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget TextFormField(String hint) {
+  Widget TextFormField(String hint,TextEditingController controller) {
     return Container(
       decoration: BoxDecoration(
         color: Colors.grey[200],
@@ -208,6 +277,7 @@ class _LoginScreenState extends State<LoginScreen> {
         borderRadius: BorderRadius.circular(12),
       ),
       child: TextField(
+        controller: controller ,
         decoration: InputDecoration(
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.black45, width: 0.5),

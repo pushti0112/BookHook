@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'provider/UserProvider.dart';
 import 'view/SplashScreen.dart';
 import 'package:sizer/sizer.dart';
+import 'package:provider/provider.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -12,7 +15,12 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MainApp();
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<UserProvider>(create: (_) => UserProvider()),
+      ],
+      child: MainApp(),
+    );
   }
 }
 

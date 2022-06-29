@@ -1,9 +1,27 @@
 // ignore_for_file: prefer_const_constructors
+import 'package:book_hook/controller/LoginSignupController.dart';
 import 'package:book_hook/global/AppColors.dart';
 import 'package:flutter/material.dart';
 
-class RegisterScreen extends StatelessWidget {
+class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
+
+  @override
+  State<RegisterScreen> createState() => _RegisterScreenState();
+}
+
+class _RegisterScreenState extends State<RegisterScreen> {
+
+  TextEditingController fNameC = TextEditingController(text: "dhruvi");
+  TextEditingController lNameC = TextEditingController(text: "Shah");
+  TextEditingController PhnNoC = TextEditingController(text: "9059778531");
+  TextEditingController emailIdC = TextEditingController(text: "ds@gmail.com");
+  TextEditingController passC = TextEditingController(text: "ds2@2222U");
+  TextEditingController cPassC = TextEditingController(text: "ds@2222U");
+  TextEditingController cityC = TextEditingController(text: "Windsor");
+  TextEditingController provinceC = TextEditingController(text: "Ontario");
+  
+
 
   @override
   Widget build(BuildContext context) {
@@ -58,31 +76,35 @@ class RegisterScreen extends StatelessWidget {
                     SizedBox(
                       height: 16,
                     ),
-                    TextFormField("First Name"),
+                    TextFormField("First Name",fNameC),
                     SizedBox(
                       height: 16,
                     ),
-                    TextFormField("Last Name"),
+                    TextFormField("Last Name",lNameC),
                     SizedBox(
                       height: 16,
                     ),
-                    TextFormField("Email"),
+                    TextFormField("Email",emailIdC),
                     SizedBox(
                       height: 16,
                     ),
-                    TextFormField("Password"),
+                    TextFormField("Phone Number",PhnNoC),
                     SizedBox(
                       height: 16,
                     ),
-                    TextFormField("Re-enter Password"),
+                    TextFormField("Password",passC),
                     SizedBox(
                       height: 16,
                     ),
-                    TextFormField("City"),
+                    TextFormField("Re-enter Password",cPassC),
                     SizedBox(
                       height: 16,
                     ),
-                    TextFormField("Province"),
+                    TextFormField("City",cityC),
+                    SizedBox(
+                      height: 16,
+                    ),
+                    TextFormField("Province",provinceC),
                   ],
                 ),
               ),
@@ -96,7 +118,20 @@ class RegisterScreen extends StatelessWidget {
                     style: ElevatedButton.styleFrom(
                         primary: AppColors.primary,
                         padding: EdgeInsets.all(16)),
-                    onPressed: () {},
+                    onPressed: () async{
+                      if(passC.text == cPassC.text)
+                        LoginSignupController().registerUser(fNameC.text, lNameC.text, PhnNoC.text, emailIdC.text, passC.text, provinceC.text, cityC.text,context);
+                      else{
+                        final snackBar = SnackBar(
+                          duration: Duration(seconds: 3),
+                          behavior: SnackBarBehavior.floating,
+                          content: const Text('Passwords does not match'),
+                          margin: EdgeInsets.symmetric(vertical: 16,horizontal: 8),
+                          backgroundColor: Colors.black87,
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      }
+                    },
                   )),
             ],
           ))
@@ -105,7 +140,7 @@ class RegisterScreen extends StatelessWidget {
     );
   }
 
-  Widget TextFormField(String hint) {
+  Widget TextFormField(String hint,TextEditingController controller) {
     return Container(
       decoration: BoxDecoration(
         color: Colors.grey[200],
@@ -113,6 +148,7 @@ class RegisterScreen extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
       ),
       child: TextField(
+        controller: controller,
         decoration: InputDecoration(
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.black45, width: 0.5),
