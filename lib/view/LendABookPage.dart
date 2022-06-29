@@ -39,49 +39,58 @@ class _LendABookPageState extends State<LendABookPage> {
       ),
 
 // Text Fields
-      backgroundColor: Color.fromARGB(255, 241, 244, 253),
       body: Padding(
           padding:
               EdgeInsets.only(top: 5.h, left: 3.h, right: 3.h, bottom: 3.h),
           child: ListView(
             children: [
-              TextField(
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black45, width: 0.5),
+//  Book Type text area
+              Container(
+                color: Colors.grey[200],
+                child: TextField(
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black45, width: 0.5),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black, width: 1),
+                    ),
+                    hintText: "Book Type",
                   ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black, width: 1),
-                  ),
-                  hintText: "Book Type",
                 ),
               ),
               SizedBox(height: 15),
 
 // Book Title text area
-              TextField(
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black45, width: 0.5),
+              Container(
+                color: Colors.grey[200],
+                child: TextField(
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black45, width: 0.5),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black, width: 1),
+                    ),
+                    hintText: "Book Title",
                   ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black, width: 1),
-                  ),
-                  hintText: "Book Title",
                 ),
               ),
               SizedBox(height: 15),
 
 // Description text area
-              TextField(
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black45, width: 0.5),
+              Container(
+                color: Colors.grey[200],
+                child: TextField(
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black45, width: 0.5),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black, width: 1),
+                    ),
+                    hintText: "Description",
                   ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black, width: 1),
-                  ),
-                  hintText: "Description",
                 ),
               ),
               SizedBox(height: 15),
