@@ -17,17 +17,14 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: (Text('Profile')),
+        title: (const Text('Profile')),
         centerTitle: true,
         elevation: 0,
         backgroundColor: AppColors.primary,
-        automaticallyImplyLeading: false,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          color: Colors.white,
-          onPressed: () {
-            /** Do something */
-          },
+      ),
+      drawer: Drawer(
+        child: ListView(
+          children: const [],
         ),
       ),
       body: ListView(physics: const BouncingScrollPhysics(), children: [
@@ -49,13 +46,14 @@ class _ProfilePageState extends State<ProfilePage> {
               border: Border.all(color: Colors.white),
               borderRadius: BorderRadius.circular(12),
             ),
-            child: const Padding(
-              padding: EdgeInsets.only(left: 20.0),
-              child: TextField(
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  hintText: 'First Name',
+            child: const TextField(
+              decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black45, width: 0.5)),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black, width: 1),
                 ),
+                hintText: 'First Name',
               ),
             ),
           ),
@@ -70,13 +68,14 @@ class _ProfilePageState extends State<ProfilePage> {
               border: Border.all(color: Colors.white),
               borderRadius: BorderRadius.circular(12),
             ),
-            child: const Padding(
-              padding: EdgeInsets.only(left: 20.0),
-              child: TextField(
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  hintText: 'Last Name',
+            child: const TextField(
+              decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black45, width: 0.5)),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black, width: 1),
                 ),
+                hintText: 'Last Name',
               ),
             ),
           ),
@@ -91,13 +90,14 @@ class _ProfilePageState extends State<ProfilePage> {
               border: Border.all(color: Colors.white),
               borderRadius: BorderRadius.circular(12),
             ),
-            child: const Padding(
-              padding: EdgeInsets.only(left: 20.0),
-              child: TextField(
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  hintText: 'Email address',
+            child: const TextField(
+              decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black45, width: 0.5)),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black, width: 1),
                 ),
+                hintText: 'Email Address',
               ),
             ),
           ),
@@ -113,42 +113,61 @@ class _ProfilePageState extends State<ProfilePage> {
               border: Border.all(color: Colors.white),
               borderRadius: BorderRadius.circular(12),
             ),
-            child: const Padding(
-              padding: EdgeInsets.only(left: 20.0),
-              child: TextField(
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  hintText: 'Phone Number',
+            child: const TextField(
+              decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black45, width: 0.5)),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black, width: 1),
                 ),
+                hintText: 'Phone Number',
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(height: 10),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 25.0),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.grey[200],
+              border: Border.all(color: Colors.white),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: const TextField(
+              decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black45, width: 0.5)),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black, width: 1),
+                ),
+                hintText: 'City',
               ),
             ),
           ),
         ),
         const SizedBox(height: 30),
+        //save button
+        Container(
+            width: double.maxFinite,
+            margin: const EdgeInsets.symmetric(horizontal: 25.0),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  primary: AppColors.primary,
+                  padding: const EdgeInsets.all(20)),
+              onPressed: () async {
+                const snackBar = SnackBar(
+                  duration: Duration(seconds: 3),
+                  behavior: SnackBarBehavior.floating,
+                  content: Text('print something'),
+                  margin: EdgeInsets.symmetric(vertical: 16, horizontal: 25),
+                  backgroundColor: Colors.black87,
+                );
 
-        //signin button
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25.0),
-          child: InkWell(
-            child: Container(
-              padding: const EdgeInsets.all(16.0),
-              decoration: BoxDecoration(
-                  color: AppColors.primary,
-                  borderRadius: BorderRadius.circular(12)),
-              child: const Center(
-                child: Text('Save Details',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18)),
-              ),
-            ),
-            onTap: () {
-              // ignore: avoid_print
-              print("Details saved");
-            },
-          ),
-        ),
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              },
+              child: const Text("Save Details"),
+            )),
       ]),
     );
   }
