@@ -15,21 +15,11 @@ class _LendABookPageState extends State<LendABookPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-          preferredSize: Size.fromHeight(16.h),
-          child: AppBar(
-            backgroundColor: AppColors.primary,
-            title: Text('Lend a Book'),
-            centerTitle: true,
-
-// Notifications icon
-            actions: const [
-              Padding(
-                padding: EdgeInsets.all(10.0),
-                child: Icon(Icons.notifications),
-              ),
-            ],
-          )),
+      appBar: AppBar(
+        backgroundColor: AppColors.primary,
+        title: Text('Lend a Book'),
+        centerTitle: true,
+      ),
 
 // Side pane button
       drawer: Drawer(
