@@ -15,14 +15,11 @@ class _BorrowBookState extends State<BorrowBook> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(16.h),
-          child: AppBar(
-            title: (const Text('Borrow A Book')),
-            centerTitle: true,
-            elevation: 0,
-            backgroundColor: AppColors.primary,
-          ),
+        appBar: AppBar(
+          title: (const Text('Borrow A Book')),
+          centerTitle: true,
+          elevation: 0,
+          backgroundColor: AppColors.primary,
         ),
         drawer: Drawer(
           child: ListView(
