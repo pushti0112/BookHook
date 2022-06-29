@@ -146,6 +146,27 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
           ),
         ),
+        const SizedBox(height: 10),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 25.0),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.grey[200],
+              border: Border.all(color: Colors.white),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: const TextField(
+              decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black45, width: 0.5)),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black, width: 1),
+                ),
+                hintText: 'Province',
+              ),
+            ),
+          ),
+        ),
         const SizedBox(height: 30),
         //save button
         Container(
@@ -157,7 +178,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   padding: const EdgeInsets.all(20)),
               onPressed: () async {
                 const snackBar = SnackBar(
-                  duration: Duration(seconds: 3),
+                  duration: Duration(seconds: 2),
                   behavior: SnackBarBehavior.floating,
                   content: Text('print something'),
                   margin: EdgeInsets.symmetric(vertical: 16, horizontal: 25),
