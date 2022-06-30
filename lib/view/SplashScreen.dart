@@ -45,17 +45,7 @@ class _SplashScreenState extends State<SplashScreen> {
         print("false");
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
       }
-      //userProvider.user = getSharedUser() as User?;
-      // print(userProvider.user);
-      //   if (userProvider.user!=null) {
-      //      print("in if");
-      //     if(userProvider.user!.Status==1)
-      //       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
-      //   }
-      //   else{
-      //     print("in else");
-      //     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
-      //   }        
+      
     });
   }
   
