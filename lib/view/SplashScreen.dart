@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:book_hook/controller/LoginSignupController.dart';
 import 'package:book_hook/global/AppColors.dart';
 import 'package:book_hook/model/UserModel.dart';
+import 'package:book_hook/view/DashboardScreen.dart';
 import 'package:book_hook/view/HomeScreen.dart';
 import 'package:book_hook/view/LoginScreen.dart';
 import 'package:book_hook/view/RegisterScreen.dart';
@@ -41,7 +42,7 @@ class _SplashScreenState extends State<SplashScreen> {
       if(await getSharedUser()==true){
         print("in if");
         userProvider.user = user;
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DashboardScreen()));
       }
       else{
         print("false");
