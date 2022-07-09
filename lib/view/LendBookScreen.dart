@@ -21,7 +21,7 @@ class _LendABookPageState extends State<LendABookPage> {
   final items =<String> [
     'Action and Adventure ', 'Classics', 'Comic', 
     'Mystery', 'Fantasy', 'Historic Fiction',
-    'Horror', 'Romance,' 'Science', 'Short Stories'
+    'Horror', 'Romance', 'Science', 'Short Stories'
   ];
   int index=0;
   @override
