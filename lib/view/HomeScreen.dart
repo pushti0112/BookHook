@@ -1,3 +1,5 @@
+import 'package:book_hook/view/BorrowBook.dart';
+import 'package:book_hook/view/LendBookScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -42,7 +44,19 @@ class _HomeScreenState extends State<HomeScreen> {
                 
                 },
                 child: Text("Logout")
-              )
+              ),
+              SizedBox(height: 20,),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: AppColors.primary,
+                  padding: EdgeInsets.all(16)),
+                onPressed: ()async{
+                  
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => LendABookPage()));
+                
+                },
+                child: Text("Lend Book")
+              ),
             ],
           ),
         ),
