@@ -1,6 +1,7 @@
 //import 'package:flutter/cupertino.dart';
 // ignore_for_file: file_names, library_private_types_in_public_api
 
+import 'package:book_hook/widget/drawer_tray.dart';
 import 'package:flutter/material.dart';
 import '../global/AppColors.dart';
 import '../widget/profile_widget.dart';
@@ -22,11 +23,7 @@ class _ProfilePageState extends State<ProfilePage> {
         elevation: 0,
         backgroundColor: AppColors.primary,
       ),
-      drawer: Drawer(
-        child: ListView(
-          children: const [],
-        ),
-      ),
+      drawer: DrawerTray(),
       body: ListView(physics: const BouncingScrollPhysics(), children: [
         const SizedBox(height: 20),
         ProfileWidget(

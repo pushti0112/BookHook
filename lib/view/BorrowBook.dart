@@ -1,3 +1,4 @@
+import 'package:book_hook/widget/drawer_tray.dart';
 import 'package:flutter/material.dart';
 import '../global/AppColors.dart';
 import 'SplashScreen.dart';
@@ -21,11 +22,7 @@ class _BorrowBookState extends State<BorrowBook> {
           elevation: 0,
           backgroundColor: AppColors.primary,
         ),
-        drawer: Drawer(
-          child: ListView(
-            children: [],
-          ),
-        ),
+        drawer: DrawerTray(),
         body: ListView(physics: const BouncingScrollPhysics(), children: [
           const SizedBox(height: 30),
           Padding(

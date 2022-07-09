@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:book_hook/controller/LendBookController.dart';
+import 'package:book_hook/widget/drawer_tray.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -34,11 +35,7 @@ class _LendABookPageState extends State<LendABookPage> {
             title: Text('Lend Book'),
             centerTitle: true,
           ),
-          drawer: Drawer(
-            child: ListView(
-              children: [],
-            ),
-          ),
+          drawer: DrawerTray(),
           body: Container(
             padding: EdgeInsets.all(16),
             child: Column(
@@ -57,7 +54,7 @@ class _LendABookPageState extends State<LendABookPage> {
                           padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 6),
                           child: DropdownButton(
                             hint: _dropDownValue == null
-                                ? Text('Book Type')
+                                ? Text('Book Type', style: TextStyle(decoration: TextDecoration.none),)
                                 : Text(_dropDownValue!,style: TextStyle(color:Colors.black),),
                             isExpanded: true,
                             iconSize: 30.0,
@@ -89,13 +86,14 @@ class _LendABookPageState extends State<LendABookPage> {
                         child: TextField(
                           autocorrect: false,
                           enableSuggestions: false,
+
                           controller: titleC,
                           decoration: InputDecoration(
+                              border: InputBorder.none,
                               enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.black45, width: 1),
                             ),
                             focusedBorder:OutlineInputBorder(
-                
                               borderSide: BorderSide(color: Colors.black, width: 1),
                             ),
                             hintText: "Book Title",

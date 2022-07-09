@@ -39,7 +39,7 @@ class LoginSignupController{
 
             String shared_user = jsonEncode(User.fromJson(element));
             preferences.setString("sUser", shared_user);
-
+          
             user.add(new User.fromJson(element));
           } else {
             print("Element is NULL");

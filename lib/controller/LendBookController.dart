@@ -1,3 +1,4 @@
+import 'package:book_hook/view/DashboardScreen.dart';
 import 'package:book_hook/view/HomeScreen.dart';
 import 'package:book_hook/view/LoginScreen.dart';
 import 'package:http/http.dart' as http;
@@ -55,7 +56,7 @@ class LendBookController{
               text: "$title lended successfully.",
               onConfirmBtnTap: (){
                 Navigator.pop(context);
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DashboardScreen()));
               }
               
             );
@@ -73,6 +74,38 @@ class LendBookController{
         }
   }
 
-    
+   Future<int> getLendBook(BuildContext context) async{
+    print("In getLendBook");
+    // ignore: unused_local_variable
+    UserProvider userProvider = Provider.of<UserProvider>(context, listen: false);
+    String username = 'Uwindsor';
+    String password = 'MAC@2022';
+    String basicAuth = 'Basic ' + base64Encode(utf8.encode('$username:$password'));
+    print("Before api");
+    http.Response response = await http.post(
+        Uri.parse(
+        "http://bookshelfdev-001-site1.ctempurl.com/api/BookShelf/USP_CRUD_LendBook"),
+        headers: <String, String>{
+         // "Accept": "application/json",
+          "content-type": "application/json",
+          "authorization": basicAuth
+        },
+        body: jsonEncode(
+          <String, dynamic>{
+            "UserId" : userProvider.user!.UserId,
+            "MODE":3
+        }
+        ));
+        print("After APi");
+        List<dynamic> jsonData = jsonDecode(response.body);
+        print("before print");
+        print(jsonData.length);
+        userProvider.lendCount = jsonData.length;
+        userProvider.notifyListeners();
+        return jsonData.length;
+        
+        
+
+  }  
 
 }
