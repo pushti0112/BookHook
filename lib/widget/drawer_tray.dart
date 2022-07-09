@@ -6,9 +6,13 @@ import 'package:book_hook/view/BorrowBook.dart';
 import 'package:book_hook/view/DashboardScreen.dart';
 import 'package:book_hook/view/LendBookScreen.dart';
 import 'package:book_hook/view/LoginScreen.dart';
+import 'package:book_hook/view/ProfilePage.dart';
 import 'package:flutter/material.dart';
+// ignore: depend_on_referenced_packages
 import 'package:shared_preferences/shared_preferences.dart';
+// ignore: depend_on_referenced_packages
 import 'package:sizer/sizer.dart';
+// ignore: depend_on_referenced_packages
 import 'package:provider/provider.dart';
 
 class DrawerTray extends StatelessWidget {
@@ -27,50 +31,57 @@ class DrawerTray extends StatelessWidget {
     return Drawer(
       child: Column(
         children: [
-          DrawerHeader(
-            decoration: BoxDecoration(
-              color: AppColors.primaryLight
-            ),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                CircleAvatar(
-                  backgroundImage: AssetImage("assets/images/profile-sample.png"),
-                  backgroundColor: AppColors.primary,
-                  radius: 50,
-                ),
-                SizedBox(width: 2.h),
-                Container(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('$l1 $l2',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20
-                        ),
-                      ),
-                      SizedBox(
-                        height:18
-                      ),
-                      Text("$add1",
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w500
-                        ),
-                      ),
-                      Text("$zip",
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w500
-                        ),
-                      ),
-
-                    ],
+          
+          InkWell(
+            onTap: ()=>Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ProfilePage())),
+            child: DrawerHeader(
+              decoration: BoxDecoration(
+                color: AppColors.primary
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  CircleAvatar(
+                    backgroundImage: AssetImage("assets/images/profile-sample.png"),
+                    backgroundColor: AppColors.primary,
+                    radius: 50,
                   ),
-                ),
-              ],
+                  SizedBox(width: 2.h),
+                  Container(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('$l1 $l2',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
+                        ),
+                        SizedBox(
+                          height:18
+                        ),
+                        Text("$add1",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white,
+                          ),
+                        ),
+                        Text("$zip",
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white,
+                          ),
+                        ),
+          
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
           ListTile(
@@ -80,7 +91,7 @@ class DrawerTray extends StatelessWidget {
             style: TextStyle(
               fontSize: 20
             ),),
-            onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context) => DashboardScreen())),
+            onTap: ()=>Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DashboardScreen())),
           ),
           ListTile(
             leading: Image.asset("assets/images/book1.png"),
@@ -89,7 +100,7 @@ class DrawerTray extends StatelessWidget {
             style: TextStyle(
               fontSize: 20
             ),),
-            onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context) => BorrowBook())),
+            onTap: ()=>Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BorrowBook())),
           ),
           ListTile(
             leading: Image.asset("assets/images/hand1.png"),
@@ -98,7 +109,7 @@ class DrawerTray extends StatelessWidget {
             style: TextStyle(
               fontSize: 20
             ),),
-            onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context) => LendABookPage())),
+            onTap: ()=>Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LendABookPage())),
           ),
           ListTile(
             leading: Image.asset("assets/images/send1.png"),

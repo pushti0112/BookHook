@@ -51,7 +51,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             height: 20.h,
             child: Center(
               child: Text(
-                "Dashboard",
+                "BookHook Dashboard!",
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
