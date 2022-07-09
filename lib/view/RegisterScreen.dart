@@ -112,27 +112,28 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 height: 16,
               ),
               Container(
-                  width: double.maxFinite,
-                  child: ElevatedButton(
-                    child: Text("Sign Up"),
-                    style: ElevatedButton.styleFrom(
-                        primary: AppColors.primary,
-                        padding: EdgeInsets.all(16)),
-                    onPressed: () async{
-                      if(passC.text == cPassC.text)
-                        LoginSignupController().registerUser(fNameC.text, lNameC.text, PhnNoC.text, emailIdC.text, passC.text, provinceC.text, cityC.text,context);
-                      else{
-                        final snackBar = SnackBar(
-                          duration: Duration(seconds: 3),
-                          behavior: SnackBarBehavior.floating,
-                          content: const Text('Passwords does not match'),
-                          margin: EdgeInsets.symmetric(vertical: 16,horizontal: 8),
-                          backgroundColor: Colors.black87,
-                        );
-                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                      }
-                    },
-                  )),
+                width: double.maxFinite,
+                child: ElevatedButton(
+                  child: Text("Sign Up"),
+                  style: ElevatedButton.styleFrom(
+                      primary: AppColors.primary,
+                      padding: EdgeInsets.all(16)),
+                  onPressed: () async{
+                    if(passC.text == cPassC.text)
+                      LoginSignupController().registerUser(fNameC.text, lNameC.text, PhnNoC.text, emailIdC.text, passC.text, provinceC.text, cityC.text,context);
+                    else{
+                      final snackBar = SnackBar(
+                        duration: Duration(seconds: 3),
+                        behavior: SnackBarBehavior.floating,
+                        content: const Text('Passwords does not match'),
+                        margin: EdgeInsets.symmetric(vertical: 16,horizontal: 8),
+                        backgroundColor: Colors.black87,
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    }
+                  },
+                )
+              ),
             ],
           ))
         ]),

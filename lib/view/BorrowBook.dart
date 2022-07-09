@@ -16,7 +16,7 @@ class _BorrowBookState extends State<BorrowBook> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: (const Text('Borrow A Book')),
+          title: (const Text('Borrow Book')),
           centerTitle: true,
           elevation: 0,
           backgroundColor: AppColors.primary,
