@@ -1,3 +1,5 @@
+import 'package:book_hook/view/DashboardScreen.dart';
+import 'package:book_hook/view/HomeScreen.dart';
 import 'package:flutter/material.dart';
 import 'provider/UserProvider.dart';
 import 'view/SplashScreen.dart';

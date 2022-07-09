@@ -2,6 +2,7 @@
 import 'dart:convert';
 
 import 'package:book_hook/controller/LoginSignupController.dart';
+import 'package:book_hook/view/DashboardScreen.dart';
 import 'package:book_hook/view/HomeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
@@ -157,7 +158,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             print(userProvider.user?.Status ?? 0);
                             if(userProvider.user!.Status==1)
                             {
-                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+                              // ignore: use_build_context_synchronously
+                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DashboardScreen()));
                             }
                             else{
                               final snackBar = SnackBar(
