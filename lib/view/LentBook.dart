@@ -3,6 +3,7 @@
 // ignore: file_names
 // ignore_for_file: file_names, duplicate_ignore, library_private_types_in_public_api, unnecessary_const
 
+import 'package:book_hook/widget/drawer_tray.dart';
 import 'package:flutter/material.dart';
 import '../global/AppColors.dart';
 
@@ -17,12 +18,14 @@ class _LentBookState extends State<LentBook> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: DrawerTray(),
       appBar: AppBar(
         title: (const Text('Lended Books')),
         centerTitle: true,
         elevation: 0,
         backgroundColor: AppColors.primary,
       ),
+      
       body: Card(
         elevation: 8,
         margin: const EdgeInsets.all(10),
