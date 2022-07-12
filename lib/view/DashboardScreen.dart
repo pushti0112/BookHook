@@ -32,43 +32,59 @@ class _DashboardScreenState extends State<DashboardScreen> {
     
     // TODO: implement initState
     print("In INIT");
-    LendBookController().getLendBook(context);
+    WidgetsBinding.instance.addPostFrameCallback((_) async{
+
+      await LendBookController().getLendBook(context);
+  });
+    
+    
     super.initState();
   }
   @override
   Widget build(BuildContext context) {
     UserProvider userProvider = Provider.of<UserProvider>(context, listen: false);
-    return Scaffold(
-      drawer: DrawerTray(),
-      appBar: AppBar(
+    return Consumer<UserProvider>(
+      builder: (BuildContext context, usp , child) {
+        return  usp.isLoading? Container(
+          color: AppColors.light3,
+          width: double.maxFinite,
+          height: double.maxFinite,
+          child: Center(child: CircularProgressIndicator(
+            color: AppColors.primary,
+          )),
+        )
+      : Scaffold(
+        drawer: DrawerTray(),
+        appBar: AppBar(
+          backgroundColor: AppColors.primary,
+          elevation: 0,
+        ),
         backgroundColor: AppColors.primary,
-        elevation: 0,
-      ),
-      backgroundColor: AppColors.primary,
-      body: Column(
-        children: [
-          SizedBox(
-            height: 20.h,
-            child: Center(
-              child: Text(
-                "BookHook Dashboard!",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 30
+        body: Column(
+          children: [
+            SizedBox(
+              height: 20.h,
+              child: Center(
+                child: Text(
+                  "BookHook Dashboard!",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 30
+                  ),
+                  ),
                 ),
-                ),
-             ),
-          ),
-          Container(
-            height: 70.h,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(topLeft: Radius.circular(5.h), topRight: Radius.circular(5.h)),
-              color: AppColors.light3,
+            ),
+            Container(
+              height: 70.h,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(topLeft: Radius.circular(5.h), topRight: Radius.circular(5.h)),
+                color: AppColors.light3,
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  
                   countWidget(userProvider: userProvider),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -79,7 +95,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         child: Center(
                           child: SvgPicture.asset(
                             "assets/images/read.svg"
-                            ),
+                          ),
                         ),
                       ),
                       SizedBox(width: 30,),
@@ -88,9 +104,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ],
               ),
             ),
-           
-           ],
-      ),
+          ],
+        ),
+      );
+      },
+      child: Container(),
     );
   }
 }
@@ -107,21 +125,15 @@ class countWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<UserProvider>(
-      builder:  (context, value, child){
-        print(value.lendCount);
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          // ignore: prefer_const_literals_to_create_immutables
-          children: [
-            dashboardCard(text: "Lended", count: userProvider.lendCount??0,id: 1),
-            dashboardCard(text: "Borrowed",count: 0, id: 2),
-          ],
-        );
-      },
-      child: Container(),
-    );
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      // ignore: prefer_const_literals_to_create_immutables
+      children: [
+        dashboardCard(text: "Lended", count: userProvider.lendCount??0,id: 1),
+        dashboardCard(text: "Borrowed",count: 0, id: 2),
+      ],
+    );       
   }
 }
 
@@ -166,7 +178,8 @@ class dashboardCard extends StatelessWidget {
               border: Border.all(color: AppColors.primary, width: 4),
               borderRadius: BorderRadius.circular(36.w),
             ),
-            child: Center(child: Text("$count",
+            child: Center(
+              child: Text("$count",
               style: TextStyle(fontSize: 24),
             ))),
         ],

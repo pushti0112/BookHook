@@ -5,4 +5,5 @@ import '../model/UserModel.dart';
 class UserProvider extends ChangeNotifier {
   User? user;
   int? lendCount;
+  bool isLoading = false;
 }

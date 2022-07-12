@@ -1,3 +1,4 @@
+import 'package:book_hook/controller/LendBookController.dart';
 import 'package:book_hook/view/BorrowBook.dart';
 import 'package:book_hook/view/LendBookScreen.dart';
 import 'package:flutter/material.dart';
@@ -56,6 +57,18 @@ class _HomeScreenState extends State<HomeScreen> {
                 
                 },
                 child: Text("Lend Book")
+              ),
+               SizedBox(height: 20,),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: AppColors.primary,
+                  padding: EdgeInsets.all(16)),
+                onPressed: ()async{
+                  
+                  //Navigator.push(context, MaterialPageRoute(builder: (context) => LendABookPage()));
+                  await LendBookController().getLendBook(context);
+                },
+                child: Text("Get Lend Book")
               ),
             ],
           ),

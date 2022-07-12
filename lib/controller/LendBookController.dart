@@ -73,15 +73,38 @@ class LendBookController{
           }        
         }
   }
+    int uid=0;
+    getSharedUser() async{
+    print("in method;");
+    User? user; 
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String? getUser = preferences.getString('sUser');
+   
+    
+    if(getUser!=null){
+  
+      Map<String,dynamic> userMap = jsonDecode(getUser);
+      print(userMap);
+      user = User.fromJson(userMap);
+      print(user!.EmailID);
+      print("User ID:" + user!.UserId.toString());
+       uid = user.UserId ?? 0 ;
+      
+    }
+  }
 
-   Future<int> getLendBook(BuildContext context) async{
-    print("In getLendBook");
+
+  getLendBook(BuildContext context) async{
     // ignore: unused_local_variable
     UserProvider userProvider = Provider.of<UserProvider>(context, listen: false);
+    userProvider.isLoading=true;
+    userProvider.notifyListeners();
+    await getSharedUser();
+    print("uid"+uid.toString());
     String username = 'Uwindsor';
     String password = 'MAC@2022';
     String basicAuth = 'Basic ' + base64Encode(utf8.encode('$username:$password'));
-    print("Before api");
+
     http.Response response = await http.post(
         Uri.parse(
         "http://bookshelfdev-001-site1.ctempurl.com/api/BookShelf/USP_CRUD_LendBook"),
@@ -92,19 +115,18 @@ class LendBookController{
         },
         body: jsonEncode(
           <String, dynamic>{
-            "UserId" : userProvider.user!.UserId,
+            "UserId" : uid,
             "MODE":3
         }
         ));
-        print("After APi");
-        List<dynamic> jsonData = jsonDecode(response.body);
-        print("before print");
-        print(jsonData.length);
+    
+        print(response.statusCode);
+        print("body"+response.body);
+        // print("After APi");
+         List<dynamic> jsonData = jsonDecode(response.body);
         userProvider.lendCount = jsonData.length;
-        userProvider.notifyListeners();
-        return jsonData.length;
-        
-        
+        userProvider.isLoading = false;
+        userProvider.notifyListeners();         
 
   }  
 

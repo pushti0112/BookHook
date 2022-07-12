@@ -64,6 +64,7 @@ class _SplashScreenState extends State<SplashScreen> {
       print(userMap);
       user = User.fromJson(userMap);
       print(user!.EmailID);
+      print("User ID:" + user!.UserId.toString());
       return true;
     }
     else{
