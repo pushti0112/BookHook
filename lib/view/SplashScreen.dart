@@ -16,7 +16,7 @@ import 'package:sizer/sizer.dart';
 import 'package:provider/provider.dart';
 import '../provider/UserProvider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'LentBook.dart';
 import 'BorrowBook.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -74,7 +74,7 @@ class _SplashScreenState extends State<SplashScreen> {
     
   }
 
-  @override
+ 
   Widget build(BuildContext context) {
     return Container(
       color: AppColors.primary,
@@ -87,3 +87,49 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 }
+
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     Future.delayed(Duration(seconds: 3), () async{
+
+      
+//       UserProvider userProvider = Provider.of<UserProvider>(context, listen: false);
+      
+    
+//       if(await getSharedUser()==true){
+//         print("in if");
+//         userProvider.user = user;
+//         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DashboardScreen()));
+//       }
+//       else{
+//         print("false");
+//         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+//       }
+      
+//     });
+//   }
+  
+//   Future<bool> getSharedUser() async{
+//     print("in method;");
+//     SharedPreferences preferences = await SharedPreferences.getInstance();
+//     String? getUser = preferences.getString('sUser');
+   
+    
+//     if(getUser!=null){
+  
+//       Map<String,dynamic> userMap = jsonDecode(getUser);
+//       print(userMap);
+//       user = User.fromJson(userMap);
+//       print(user!.EmailID);
+//       return true;
+//     }
+//     else{
+//       print("in null");
+//       return false;
+//     }
+    
+//   }
+
+  
