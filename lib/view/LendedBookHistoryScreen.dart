@@ -77,7 +77,7 @@ class _LendedBookHistoryScreenState extends State<LendedBookHistoryScreen> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("The Lion",
+                      Text("The Lion & The Witch",
                       style: TextStyle(
                         fontSize: 16,
                       ),),
