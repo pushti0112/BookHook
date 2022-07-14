@@ -6,6 +6,7 @@ import 'package:book_hook/global/AppColors.dart';
 import 'package:book_hook/model/UserModel.dart';
 import 'package:book_hook/provider/UserProvider.dart';
 import 'package:book_hook/view/LendBookScreen.dart';
+import 'package:book_hook/view/LendedBookHistoryScreen.dart';
 import 'package:book_hook/view/LoginScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -130,7 +131,7 @@ class countWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       // ignore: prefer_const_literals_to_create_immutables
       children: [
-        dashboardCard(text: "Lended", count: userProvider.lendCount??0,id: 1),
+        InkWell(child: dashboardCard(text: "Lended", count: userProvider.lendCount??0,id: 1),onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context) => LendedBookHistoryScreen())),),
         dashboardCard(text: "Borrowed",count: 0, id: 2),
       ],
     );       
