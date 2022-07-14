@@ -91,7 +91,17 @@ class _LendedBookHistoryScreenState extends State<LendedBookHistoryScreen> {
                             color:i%2==0? AppColors.secondary:AppColors.success,
                           ),),
                         ],
-                      )
+                      ),
+                      SizedBox(height: 8,),
+                      Row( 
+                        children: [
+                           Text("Borrowed By: ",style: TextStyle(fontSize: 16),),
+                           Text(i%2==0?"None":"Michael Smith",
+                          style: TextStyle(
+                            fontSize: 16,
+                          ),),
+                        ],
+                      ),
                     ],
                   ),
                 )

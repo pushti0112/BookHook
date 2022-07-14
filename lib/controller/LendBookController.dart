@@ -1,3 +1,4 @@
+import 'package:book_hook/provider/LendBookProvider.dart';
 import 'package:book_hook/view/DashboardScreen.dart';
 import 'package:book_hook/view/HomeScreen.dart';
 import 'package:book_hook/view/LoginScreen.dart';
@@ -96,9 +97,9 @@ class LendBookController{
 
   getLendBook(BuildContext context) async{
     // ignore: unused_local_variable
-    UserProvider userProvider = Provider.of<UserProvider>(context, listen: false);
-    userProvider.isLoading=true;
-    userProvider.notifyListeners();
+    LendBookProvider lendBookProvider = Provider.of<LendBookProvider>(context, listen: false);
+    lendBookProvider.isLoading=true;
+    lendBookProvider.notifyListeners();
     await getSharedUser();
     print("uid"+uid.toString());
     String username = 'Uwindsor';
@@ -124,9 +125,9 @@ class LendBookController{
         print("body"+response.body);
         // print("After APi");
          List<dynamic> jsonData = jsonDecode(response.body);
-        userProvider.lendCount = jsonData.length;
-        userProvider.isLoading = false;
-        userProvider.notifyListeners();         
+        lendBookProvider.lendCount = jsonData.length;
+        lendBookProvider.isLoading = false;
+        lendBookProvider.notifyListeners();         
 
   }  
 
