@@ -124,11 +124,49 @@ class LendBookController{
         print(response.statusCode);
         print("body"+response.body);
         // print("After APi");
-         List<dynamic> jsonData = jsonDecode(response.body);
+        List<dynamic> jsonData = jsonDecode(response.body);
         lendBookProvider.lendCount = jsonData.length;
         lendBookProvider.isLoading = false;
+        lendBookProvider.lendedbooks = jsonData;
         lendBookProvider.notifyListeners();         
 
   }  
+  deleteLendBook(BuildContext context,int i) async{
+    
+    await getSharedUser();
+    LendBookProvider lendBookProvider = Provider.of<LendBookProvider>(context, listen: false);
+    String username = 'Uwindsor';
+    String password = 'MAC@2022';
+    String basicAuth = 'Basic ' + base64Encode(utf8.encode('$username:$password'));
+
+    http.Response response = await http.post(
+        Uri.parse(
+        "http://bookshelfdev-001-site1.ctempurl.com/api/BookShelf/USP_CRUD_LendBook"),
+        headers: <String, String>{
+         // "Accept": "application/json",
+          "content-type": "application/json",
+          "authorization": basicAuth
+        },
+        body: jsonEncode(
+          <String, dynamic>{
+            "UserId" : uid,
+            "LendBookID" : lendBookProvider.lendedbooks![i]["LendBookID"],
+            "MODE":2
+          }
+        ));
+        print("body"+response.body);
+        // print("After APi");
+        List<dynamic> jsonData = jsonDecode(response.body);
+        if(jsonData!=null){
+          print(jsonData[0]);
+          print(jsonData[0]['Status']);
+          if(jsonData[0]['Status'] == 1)
+          {
+             lendBookProvider.lendedbooks?.removeAt(i);
+             lendBookProvider.notifyListeners();
+          }
+        }
+
+  }
 
 }

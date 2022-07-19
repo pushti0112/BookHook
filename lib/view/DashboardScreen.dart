@@ -44,7 +44,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
   @override
   Widget build(BuildContext context) {
-    LendBookProvider lendBookProvider = Provider.of<LendBookProvider>(context, listen: false);
+  //  LendBookProvider lendBookProvider = Provider.of<LendBookProvider>(context, listen: false);
     return Consumer<LendBookProvider>(
       builder: (BuildContext context, lsp , child) {
         return  lsp.isLoading? Container(
@@ -87,7 +87,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   
-                  countWidget(lendBookProvider: lendBookProvider),
+                  countWidget(lendBookProvider: lsp),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
