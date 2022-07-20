@@ -15,7 +15,7 @@ class LendBookController{
 
     
 
-  addBook(BuildContext context,String title, String desc,int index) async{
+  addBook(BuildContext context,String title, String desc,int index,String path) async{
     UserProvider userProvider = Provider.of<UserProvider>(context, listen: false);
 
     String username = 'Uwindsor';
@@ -36,7 +36,7 @@ class LendBookController{
             "BookTypeID":index,
             "BookTitle" : title,
             "BookDescription": desc,
-            "CoverImagePath" : "C:\\Users\\dhruvi.shah\\Downloads\\test.png",
+            "CoverImagePath" : path,
             "MODE":1
         }
         ));
@@ -54,8 +54,9 @@ class LendBookController{
               type: CoolAlertType.success,
               width: 75,
               title: 'Good Job!',
-              text: "$title lended successfully.",
-              onConfirmBtnTap: (){
+              text: "$title added successfully.",
+              onConfirmBtnTap: ()async{
+                await getLendBook(context);
                 Navigator.pop(context);
                 Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DashboardScreen()));
               }
@@ -120,15 +121,14 @@ class LendBookController{
             "MODE":3
         }
         ));
-    
-        print(response.statusCode);
-        print("body"+response.body);
-        // print("After APi");
+        if(response.body.isNotEmpty){
+        
         List<dynamic> jsonData = jsonDecode(response.body);
         lendBookProvider.lendCount = jsonData.length;
         lendBookProvider.isLoading = false;
         lendBookProvider.lendedbooks = jsonData;
-        lendBookProvider.notifyListeners();         
+        lendBookProvider.notifyListeners();   
+        }      
 
   }  
   deleteLendBook(BuildContext context,int i) async{
@@ -163,7 +163,9 @@ class LendBookController{
           if(jsonData[0]['Status'] == 1)
           {
              lendBookProvider.lendedbooks?.removeAt(i);
+             lendBookProvider.lendCount = jsonData.length;
              lendBookProvider.notifyListeners();
+
           }
         }
 

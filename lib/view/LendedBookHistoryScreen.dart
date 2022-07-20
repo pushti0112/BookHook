@@ -3,6 +3,8 @@
 // ignore: file_names
 // ignore_for_file: file_names, duplicate_ignore, library_private_types_in_public_api, unnecessary_const
 
+import 'dart:io';
+
 import 'package:book_hook/controller/LendBookController.dart';
 import 'package:book_hook/provider/LendBookProvider.dart';
 import 'package:book_hook/widget/drawer_tray.dart';
@@ -58,6 +60,7 @@ class _LendedBookHistoryScreenState extends State<LendedBookHistoryScreen> {
                 onDismissed: (direction) async{
                    
                     await LendBookController().deleteLendBook(context,i);
+                    print("lend count"+lsp.lendCount.toString());
                     
                   ScaffoldMessenger.of(context)
                       .showSnackBar(SnackBar(content: Text('$i dismissed')));
@@ -107,8 +110,9 @@ class _LendedBookHistoryScreenState extends State<LendedBookHistoryScreen> {
                   width: 25.w,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8),
-                    child: Image.asset(
-                      "assets/images/samplebook.jpg",
+                    child: Image.file(
+                     // "assets/images/samplebook.jpg",
+                      File(lendBookProvider.lendedbooks![i]['CoverImagePath']),
                       fit: BoxFit.fill,
                       ),
                   ),
