@@ -3,12 +3,12 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 
 class ProfileWidget extends StatelessWidget {
-  final String imagePath;
+ // final String imagePath;
   final VoidCallback onClicked;
 
   const ProfileWidget({
     Key? key,
-    required this.imagePath,
+   // required this.imagePath,
     required this.onClicked,
   }) : super(key: key);
 
@@ -31,17 +31,17 @@ class ProfileWidget extends StatelessWidget {
   }
 
   Widget buildImage() {
-    final image = NetworkImage(imagePath);
+  //  final image = Image.asset("assets/images/profile-sample.png");
 
     return ClipOval(
       child: Material(
         color: Colors.transparent,
-        child: Ink.image(
-          image: image,
+        child: Image.asset(
+          "assets/images/profile-sample.png",
           fit: BoxFit.cover,
           width: 128,
           height: 128,
-          child: InkWell(onTap: onClicked),
+       //   child: InkWell(onTap: onClicked),
         ),
       ),
     );
