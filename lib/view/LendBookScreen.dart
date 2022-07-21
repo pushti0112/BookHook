@@ -229,11 +229,16 @@ class _LendABookPageState extends State<LendABookPage> {
                 SizedBox(height: 16,),
                 Divider(color: Colors.black45, thickness: 0.5,),
                 SizedBox(height: 8,),
-                Text("Gallery",style: TextStyle(color: AppColors.primary,fontSize: 16),),
+                InkWell(onTap: ()async{
+                  pickedFile = null;
+                  pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+                },
+                  child: Text("Gallery",style: TextStyle(color: AppColors.primary,fontSize: 16),)),
                 SizedBox(height: 8,),
                 Divider(color: Colors.black45, thickness: 0.5,),
                 SizedBox(height: 8,),
                 InkWell(onTap: () async{
+                pickedFile = null;
                 pickedFile = await ImagePicker().pickImage(source: ImageSource.camera, preferredCameraDevice: CameraDevice.front);
                 },
                 child: Text("Camera",style: TextStyle(color: AppColors.primary,fontSize: 16),)),

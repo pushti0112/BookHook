@@ -48,7 +48,21 @@ class _LendedBookHistoryScreenState extends State<LendedBookHistoryScreen> {
       
       body: Consumer<LendBookProvider>(
         builder: (BuildContext context, lsp, child) { 
-          return Container(
+          return lsp.lendCount == 0
+          ? Container(
+              height: double.maxFinite,
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset("assets/images/no_data_found.png",height: 33.w,),
+                    SizedBox(height: 16,),
+                    Text("No Data Found",style: TextStyle(fontSize: 18),),      
+                  ],
+                ),
+              ),
+            ) 
+          : Container(
           height: double.maxFinite,
           padding: EdgeInsets.all(16),
           child: ListView.separated(
@@ -110,9 +124,9 @@ class _LendedBookHistoryScreenState extends State<LendedBookHistoryScreen> {
                   width: 25.w,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8),
-                    child: Image.file(
-                     // "assets/images/samplebook.jpg",
-                      File(lendBookProvider.lendedbooks![i]['CoverImagePath']),
+                    child: Image.asset(
+                      "assets/images/samplebook.jpg",
+                     // File(lendBookProvider.lendedbooks![i]['CoverImagePath']),
                       fit: BoxFit.fill,
                       ),
                   ),

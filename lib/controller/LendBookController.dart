@@ -10,10 +10,36 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cool_alert/cool_alert.dart';
 import '../model/UserModel.dart';
 import '../provider/UserProvider.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 class LendBookController{
 
+  final firebase_storage.FirebaseStorage storage = firebase_storage.FirebaseStorage.instance;
+
+  int uid=0;
+  
+    getSharedUser() async{
+    print("in method;");
+    User? user; 
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String? getUser = preferences.getString('sUser');
+   
     
+    if(getUser!=null){
+  
+      Map<String,dynamic> userMap = jsonDecode(getUser);
+      print(userMap);
+      user = User.fromJson(userMap);
+      print(user!.EmailID);
+      print("User ID:" + user!.UserId.toString());
+       uid = user.UserId ?? 0 ;
+      
+    }
+  }
+
+  uploadFiletoStorage(String filePath, String fileName){
+    
+  }
 
   addBook(BuildContext context,String title, String desc,int index,String path) async{
     UserProvider userProvider = Provider.of<UserProvider>(context, listen: false);
@@ -74,27 +100,7 @@ class LendBookController{
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
           }        
         }
-  }
-    int uid=0;
-    getSharedUser() async{
-    print("in method;");
-    User? user; 
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    String? getUser = preferences.getString('sUser');
-   
-    
-    if(getUser!=null){
-  
-      Map<String,dynamic> userMap = jsonDecode(getUser);
-      print(userMap);
-      user = User.fromJson(userMap);
-      print(user!.EmailID);
-      print("User ID:" + user!.UserId.toString());
-       uid = user.UserId ?? 0 ;
-      
-    }
-  }
-
+  } 
 
   getLendBook(BuildContext context) async{
     // ignore: unused_local_variable
@@ -124,10 +130,20 @@ class LendBookController{
         if(response.body.isNotEmpty){
         
         List<dynamic> jsonData = jsonDecode(response.body);
-        lendBookProvider.lendCount = jsonData.length;
-        lendBookProvider.isLoading = false;
-        lendBookProvider.lendedbooks = jsonData;
-        lendBookProvider.notifyListeners();   
+        print("Status");
+        print(jsonData[0]['Status']);
+        if(jsonData[0]['Status']==0){
+          lendBookProvider.lendCount = 0;
+          lendBookProvider.isLoading = false;
+          lendBookProvider.notifyListeners();
+        }
+        else{
+          lendBookProvider.lendCount = jsonData.length;
+          lendBookProvider.isLoading = false;
+          lendBookProvider.lendedbooks = jsonData;
+          lendBookProvider.notifyListeners();  
+        }
+         
         }      
 
   }  

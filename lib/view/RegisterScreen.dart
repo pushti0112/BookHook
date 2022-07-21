@@ -12,14 +12,14 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
 
-  TextEditingController fNameC = TextEditingController(text: "dhruvi");
-  TextEditingController lNameC = TextEditingController(text: "Shah");
-  TextEditingController PhnNoC = TextEditingController(text: "9059778531");
-  TextEditingController emailIdC = TextEditingController(text: "ds@gmail.com");
-  TextEditingController passC = TextEditingController(text: "ds2@2222U");
-  TextEditingController cPassC = TextEditingController(text: "ds@2222U");
-  TextEditingController cityC = TextEditingController(text: "Windsor");
-  TextEditingController provinceC = TextEditingController(text: "Ontario");
+  TextEditingController fNameC = TextEditingController();
+  TextEditingController lNameC = TextEditingController();
+  TextEditingController PhnNoC = TextEditingController();
+  TextEditingController emailIdC = TextEditingController();
+  TextEditingController passC = TextEditingController();
+  TextEditingController cPassC = TextEditingController();
+  TextEditingController cityC = TextEditingController();
+  TextEditingController provinceC = TextEditingController();
   
 
 
