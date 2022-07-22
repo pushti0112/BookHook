@@ -29,7 +29,7 @@ class _LendABookPageState extends State<LendABookPage> {
     'Horror', 'Romance', 'Science', 'Short Stories'
   ];
   int index=0;
- // File? imageFile;
+  File? imageFile;
   XFile? pickedFile;
   
 
@@ -167,39 +167,40 @@ class _LendABookPageState extends State<LendABookPage> {
                         ]
                       ),
                       SizedBox(height: 16),
-                      Container(
-                        width: double.maxFinite,
-                        child: ElevatedButton(
-                          child: Text("Add"),
-                          style: ElevatedButton.styleFrom(
-                              primary: AppColors.primary,
-                              padding: EdgeInsets.all(16)),
-                          onPressed: () async{
-                            if(titleC.text.isEmpty || descC.text.isEmpty || _dropDownValue==null || pickedFile==null){
-                              final snackBar = SnackBar(
-                                duration: Duration(seconds: 3),
-                                behavior: SnackBarBehavior.floating,
-                                content: const Text('Enter data for all fields'),
-                                margin: EdgeInsets.symmetric(vertical: 16,horizontal: 8),
-                                backgroundColor: Colors.black87,
-                              );
-                              ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                            }
-                            else
-                              await LendBookController().addBook(context,titleC.text,descC.text,index+1,pickedFile!.path);
-                          }
-                        )
-                      ),
-                      // SizedBox(height: 16),
-                      // imageFile == null ? Text("null image")
-                      // : Container(
-                      //   child: Image.file(
-                      //     imageFile!,
-                      //     fit: BoxFit.cover,
-                      //   ),
-                      //),
+                      imageFile!=null?Container(
+                        height: 24.h,
+                        width: 24.w,
+                  child: Image.file(imageFile!,fit: BoxFit.contain),
+                  
+                ):Container(),
                     ],
                   ),
+                  
+                ),
+                
+                //BTN
+                Container(
+                  width: double.maxFinite,
+                  child: ElevatedButton(
+                    child: Text("Add"),
+                    style: ElevatedButton.styleFrom(
+                        primary: AppColors.primary,
+                        padding: EdgeInsets.all(16)),
+                    onPressed: ()async{
+                      if(titleC.text.isEmpty || descC.text.isEmpty || _dropDownValue==null || pickedFile==null){
+                        final snackBar = SnackBar(
+                          duration: Duration(seconds: 3),
+                          behavior: SnackBarBehavior.floating,
+                          content: const Text('Enter data for all fields'),
+                          margin: EdgeInsets.symmetric(vertical: 16,horizontal: 8),
+                          backgroundColor: Colors.black87,
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      }
+                      else
+                        await LendBookController().addBook(context,titleC.text,descC.text,index+1,pickedFile!.path);
+                    },
+                  )
                 ),
               ],
             ),
@@ -235,6 +236,9 @@ class _LendABookPageState extends State<LendABookPage> {
                 InkWell(onTap: ()async{
                   pickedFile = null;
                   pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+                  setState(() {
+                    imageFile = File(pickedFile!.path);
+                  });
                   Navigator.pop(context);
                   
                 },
@@ -245,6 +249,9 @@ class _LendABookPageState extends State<LendABookPage> {
                 InkWell(onTap: () async{
                 pickedFile = null;
                 pickedFile = await ImagePicker().pickImage(source: ImageSource.camera, preferredCameraDevice: CameraDevice.front);
+                setState(() {
+                    imageFile = File(pickedFile!.path);
+                  });
                 Navigator.pop(context);
                 },
                 child: Text("Camera",style: TextStyle(color: AppColors.primary,fontSize: 16),)),
