@@ -1,3 +1,5 @@
+import 'dart:io' as io;
+
 import 'package:book_hook/provider/LendBookProvider.dart';
 import 'package:book_hook/view/DashboardScreen.dart';
 import 'package:book_hook/view/HomeScreen.dart';
@@ -11,7 +13,7 @@ import 'package:cool_alert/cool_alert.dart';
 import '../model/UserModel.dart';
 import '../provider/UserProvider.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
-
+import 'package:firebase_core/firebase_core.dart' as firebase_core;
 class LendBookController{
 
   final firebase_storage.FirebaseStorage storage = firebase_storage.FirebaseStorage.instance;
@@ -37,12 +39,38 @@ class LendBookController{
     }
   }
 
-  uploadFiletoStorage(String filePath, String fileName){
+  uploadFiletoStorage(String filePath, String fileName,BuildContext context)async{
+    UserProvider usp = Provider.of<UserProvider>(context, listen: false);
+    print("path"+ filePath);
+    print("name"+fileName);
+    io.File file = io.File(filePath); 
+    try{
+      await storage.ref('CoverImage/${usp.user!.UserId}/$fileName').putFile(file);
+    } on firebase_core.FirebaseException catch (e){
+      print(e); 
+    }
     
+  }
+
+   Future<String> getUrlfromStorage(String fileName,BuildContext context) async{
+    UserProvider usp = Provider.of<UserProvider>(context, listen: false);
+
+    String imageUrl = await storage.ref('CoverImage/${usp.user!.UserId}/$fileName').getDownloadURL(); 
+    print("url"+imageUrl);
+
+    return imageUrl;
+
   }
 
   addBook(BuildContext context,String title, String desc,int index,String path) async{
     UserProvider userProvider = Provider.of<UserProvider>(context, listen: false);
+
+    String fileName = title.replaceAll(" ", "_") + ".jpg";
+
+    await uploadFiletoStorage(path, fileName, context);
+
+    String imageUrl =  await getUrlfromStorage(fileName, context);
+
 
     String username = 'Uwindsor';
     String password = 'MAC@2022';
@@ -62,7 +90,7 @@ class LendBookController{
             "BookTypeID":index,
             "BookTitle" : title,
             "BookDescription": desc,
-            "CoverImagePath" : path,
+            "CoverImagePath" : imageUrl,
             "MODE":1
         }
         ));
@@ -103,7 +131,7 @@ class LendBookController{
   } 
 
   getLendBook(BuildContext context) async{
-    // ignore: unused_local_variable
+   // getUrlfromStorage("The Lion", context);
     LendBookProvider lendBookProvider = Provider.of<LendBookProvider>(context, listen: false);
     lendBookProvider.isLoading=true;
     lendBookProvider.notifyListeners();
