@@ -186,7 +186,7 @@ class _LendABookPageState extends State<LendABookPage> {
                               ScaffoldMessenger.of(context).showSnackBar(snackBar);
                             }
                             else
-                              await LendBookController().addBook(context,titleC.text,descC.text,index,pickedFile!.path);
+                              await LendBookController().addBook(context,titleC.text,descC.text,index+1,pickedFile!.path);
                           }
                         )
                       ),
@@ -235,6 +235,7 @@ class _LendABookPageState extends State<LendABookPage> {
                 InkWell(onTap: ()async{
                   pickedFile = null;
                   pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+                  Navigator.pop(context);
                   
                 },
                   child: Text("Gallery",style: TextStyle(color: AppColors.primary,fontSize: 16),)),
@@ -244,6 +245,7 @@ class _LendABookPageState extends State<LendABookPage> {
                 InkWell(onTap: () async{
                 pickedFile = null;
                 pickedFile = await ImagePicker().pickImage(source: ImageSource.camera, preferredCameraDevice: CameraDevice.front);
+                Navigator.pop(context);
                 },
                 child: Text("Camera",style: TextStyle(color: AppColors.primary,fontSize: 16),)),
                 SizedBox(height: 16,),

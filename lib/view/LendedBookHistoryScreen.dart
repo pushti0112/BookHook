@@ -147,10 +147,10 @@ class _LendedBookHistoryScreenState extends State<LendedBookHistoryScreen> {
                       Row( 
                         children: [
                            Text("Status: ",style: TextStyle(fontSize: 16),),
-                           Text(i%2==0?"Pending":"Lended",
+                           Text(lendBookProvider.lendedbooks![i]["BookStatus"],
                           style: TextStyle(
                             fontSize: 16,
-                            color:i%2==0? AppColors.secondary:AppColors.success,
+                            color: lendBookProvider.lendedbooks![i]["BookStatus"]== "Pending" ? AppColors.secondary:AppColors.success,
                           ),),
                         ],
                       ),
@@ -158,7 +158,7 @@ class _LendedBookHistoryScreenState extends State<LendedBookHistoryScreen> {
                       Row( 
                         children: [
                            Text("Borrowed By: ",style: TextStyle(fontSize: 16),),
-                           Text(i%2==0?"None":"Michael Smith",
+                           Text(lendBookProvider.lendedbooks![i]["Borrower Name"]== null ? "None": lendBookProvider.lendedbooks![i]["Borrower Name"],
                           style: TextStyle(
                             fontSize: 16,
                           ),),
