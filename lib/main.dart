@@ -1,3 +1,4 @@
+import 'package:book_hook/provider/BorrowBookProvider.dart';
 import 'package:book_hook/provider/LendBookProvider.dart';
 import 'package:book_hook/view/DashboardScreen.dart';
 import 'package:book_hook/view/HomeScreen.dart';
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<UserProvider>(create: (_) => UserProvider()),
         ChangeNotifierProvider<LendBookProvider>(create: (_) => LendBookProvider()),
+        ChangeNotifierProvider<BorrowBookProvider>(create: (_) => BorrowBookProvider()),
       ],
       child: MainApp(),
     );

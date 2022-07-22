@@ -1,3 +1,4 @@
+import 'package:book_hook/controller/BorrowBookController.dart';
 import 'package:book_hook/widget/drawer_tray.dart';
 import 'package:flutter/material.dart';
 import '../global/AppColors.dart';
@@ -13,6 +14,19 @@ class BorrowBook extends StatefulWidget {
 }
 
 class _BorrowBookState extends State<BorrowBook> {
+
+    @override
+  void initState(){
+    
+    // TODO: implement initState
+    print("In INIT");
+    WidgetsBinding.instance.addPostFrameCallback((_) async{
+
+      await BorrowBookController().getPostals(context);
+  });   
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
