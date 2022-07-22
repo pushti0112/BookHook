@@ -1,3 +1,4 @@
+import 'package:book_hook/controller/BorrowBookController.dart';
 import 'package:book_hook/widget/drawer_tray.dart';
 import 'package:flutter/material.dart';
 import '../global/AppColors.dart';
@@ -13,6 +14,26 @@ class BorrowBook extends StatefulWidget {
 }
 
 class _BorrowBookState extends State<BorrowBook> {
+
+  List<String> kOptions = <String>[
+    'aardvark',
+    'bobcat',
+    'chameleon',
+  ];
+
+
+    @override
+  void initState(){
+    
+    // TODO: implement initState
+    print("In INIT");
+    WidgetsBinding.instance.addPostFrameCallback((_) async{
+
+      await BorrowBookController().getPostals(context);
+  });   
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,6 +45,8 @@ class _BorrowBookState extends State<BorrowBook> {
         ),
         drawer: DrawerTray(),
         body: ListView(physics: const BouncingScrollPhysics(), children: [
+          const SizedBox(height: 30),
+          SearchText(context, kOptions),
           const SizedBox(height: 30),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -125,4 +148,20 @@ class _BorrowBookState extends State<BorrowBook> {
               )),
         ]));
   }
+  Widget SearchText(BuildContext context,List<String> kOptions) {
+    return Autocomplete<String>(
+      optionsBuilder: (TextEditingValue textEditingValue) {
+        if (textEditingValue.text == '') {
+          return const Iterable<String>.empty();
+        }
+        return kOptions.where((String option) {
+          return option.contains(textEditingValue.text.toLowerCase());
+        });
+      },
+      onSelected: (String selection) {
+        debugPrint('You just selected $selection');
+      },
+    );
+  }
 }
+
