@@ -1,4 +1,5 @@
 // ignore_for_file: prefer_const_constructors
+
 import 'dart:io';
 import 'package:book_hook/controller/LendBookController.dart';
 import 'package:book_hook/widget/drawer_tray.dart';
@@ -8,6 +9,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import '../global/AppColors.dart';
 import 'package:sizer/sizer.dart';
 import 'package:image_picker/image_picker.dart';
+
 
 class LendABookPage extends StatefulWidget {
   const LendABookPage({Key? key}) : super(key: key);
@@ -29,6 +31,7 @@ class _LendABookPageState extends State<LendABookPage> {
   int index=0;
  // File? imageFile;
   XFile? pickedFile;
+  
 
 //  pickImage() async {
 //    pickedFile = await ImagePicker().pickImage(source: ImageSource.camera, preferredCameraDevice: CameraDevice.front);
@@ -232,6 +235,7 @@ class _LendABookPageState extends State<LendABookPage> {
                 InkWell(onTap: ()async{
                   pickedFile = null;
                   pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+                  
                 },
                   child: Text("Gallery",style: TextStyle(color: AppColors.primary,fontSize: 16),)),
                 SizedBox(height: 8,),

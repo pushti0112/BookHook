@@ -4,7 +4,7 @@
 // ignore_for_file: file_names, duplicate_ignore, library_private_types_in_public_api, unnecessary_const
 
 import 'dart:io';
-
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:book_hook/controller/LendBookController.dart';
 import 'package:book_hook/provider/LendBookProvider.dart';
 import 'package:book_hook/widget/drawer_tray.dart';
@@ -124,11 +124,13 @@ class _LendedBookHistoryScreenState extends State<LendedBookHistoryScreen> {
                   width: 25.w,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8),
-                    child: Image.asset(
-                      "assets/images/samplebook.jpg",
-                     // File(lendBookProvider.lendedbooks![i]['CoverImagePath']),
+                    child: CachedNetworkImage(
+                      imageUrl: //"assets/images/bookplaceholder.png",width: 10,height: 20,
+                      lendBookProvider.lendedbooks![i]['CoverImagePath'],
+                      placeholder: (context, url) => Padding(padding: EdgeInsets.symmetric(vertical: 52,horizontal: 40),child: CircularProgressIndicator(color: AppColors.primary,strokeWidth: 2,)),
+                      errorWidget: (context, url, error) => Icon(Icons.error),
                       fit: BoxFit.fill,
-                      ),
+                    ),
                   ),
                 ),
                 Container(
