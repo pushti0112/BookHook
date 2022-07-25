@@ -78,33 +78,34 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   ),
                 ),
             ),
-            Container(
-              height: 70.h,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(topLeft: Radius.circular(5.h), topRight: Radius.circular(5.h)),
-                color: AppColors.light3,
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  
-                  countWidget(lendBookProvider: lsp),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        height: 24.h,
-                        width: 24.h,
-                        child: Center(
-                          child: SvgPicture.asset(
-                            "assets/images/read.svg"
+            Expanded
+            (
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(topLeft: Radius.circular(5.h), topRight: Radius.circular(5.h)),
+                  color: AppColors.light3,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    countWidget(lendBookProvider: lsp),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          height: 24.h,
+                          width: 24.h,
+                          child: Center(
+                            child: SvgPicture.asset(
+                              "assets/images/read.svg"
+                            ),
                           ),
                         ),
-                      ),
-                      SizedBox(width: 30,),
-                    ],
-                  ),
-                ],
+                        SizedBox(width: 30,),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
