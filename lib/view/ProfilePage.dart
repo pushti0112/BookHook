@@ -120,33 +120,6 @@ class _ProfilePageState extends State<ProfilePage> {
                     SizedBox(
                       height: 16,
                     ),
-                    // DecoratedBox(
-                    //   decoration:  BoxDecoration(
-                    //     color: Colors.grey[200],
-                    //     border: Border.all(color: Colors.black38),
-                    //     borderRadius: BorderRadius.circular(6),
-                    //     ),
-                    //   child: Padding(
-                    //     padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 6),
-                    //     child: DropdownButton(
-                    //       hint: _dropDownValue == null
-                    //           ? Text('Book Type', style: TextStyle(decoration: TextDecoration.none),)
-                    //           : Text(_dropDownValue!,style: TextStyle(color:Colors.black),),
-                    //       isExpanded: true,
-                    //       iconSize: 30.0,
-                    //       items: borrowBookProvider.postals.forEach((key,val) {
-                              
-                    //       ).toList(),
-                    //       onChanged: (newval) {
-                    //         setState(() {
-                    //             _dropDownValue = newval.toString();
-                    //               index = items.indexOf(_dropDownValue!);
-                    //           },
-                    //         );
-                    //       },
-                    //     ),
-                    //   ),
-                    // ),
                     SizedBox(
                       height: 16,
                     ),

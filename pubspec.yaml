@@ -50,6 +50,7 @@ dev_dependencies:
   firebase_storage: ^10.3.3
   firebase_core: ^1.20.0
   cached_network_image: ^3.2.1
+  searchfield: ^0.6.7
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
