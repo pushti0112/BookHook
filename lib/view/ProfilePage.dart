@@ -33,19 +33,20 @@ class _ProfilePageState extends State<ProfilePage> {
   
   @override
   void initState() {
-
+super.initState();
     // TODO: implement initState
-     WidgetsBinding.instance.addPostFrameCallback((_) async{
-      BorrowBookProvider borrowBookProvider = Provider.of<BorrowBookProvider>(context, listen: false);
-      await BorrowBookController().getPostals(context);
-      borrowBookProvider.postals!.forEach((element) { 
-        //print(element["POSTAL_CODE"]);
+   //  WidgetsBinding.instance.addPostFrameCallback((_) async{
+  //     BorrowBookProvider borrowBookProvider = Provider.of<BorrowBookProvider>(context, listen: false);
+  //     await BorrowBookController().getPostals(context);
+  //     borrowBookProvider.postals!.forEach((element) { 
+  //       //print(element["POSTAL_CODE"]);
 
-      });
-  });
+  //     });
+  // });
 
-    super.initState();
+    
   }
+
   @override
   Widget build(BuildContext context) {
     
@@ -137,7 +138,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       primary: AppColors.primary,
                       padding: EdgeInsets.all(16)),
                   onPressed: () async{
-                    await LoginSignupController().updateProfile(context);
+                    await LoginSignupController().updateProfile(context,fNameC.text,lNameC.text,PhnNoC.text,emailIdC.text);
                       // final snackBar = SnackBar(
                       //   duration: Duration(seconds: 3),
                       //   behavior: SnackBarBehavior.floating,

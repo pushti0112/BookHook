@@ -131,7 +131,7 @@ class _BorrowBookState extends State<BorrowBook> {
                       suggestionState: Suggestion.expand,
                       textInputAction: TextInputAction.next,
 
-                      hint: 'SearchField Example 2',
+                      hint: 'Enter Zip',
                       hasOverlay: false,
                       searchStyle: TextStyle(
                         fontSize: 18,
@@ -143,18 +143,22 @@ class _BorrowBookState extends State<BorrowBook> {
                         }
                       return null;
                       },
+
                       searchInputDecoration: InputDecoration(
-                        
-                        focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                        color: Colors.black.withOpacity(0.8),
-                        
-                        ),
-                        ),
-                        border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.red),
-                        ),
+                        fillColor: Colors.grey[200],
+                        filled: true,
+                        disabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black45, width: 0.5),
                       ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black45, width: 0.5),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black, width: 1),
+                      ),
+        
+                      ),
+
                       maxSuggestionsInViewPort: 6,
                       itemHeight: 50,
                     

@@ -1,4 +1,5 @@
 import 'package:book_hook/provider/UserProvider.dart';
+import 'package:book_hook/view/DashboardScreen.dart';
 import 'package:book_hook/view/LoginScreen.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -87,7 +88,7 @@ class LoginSignupController{
         if (jsonData != null) {
           if(jsonData[0]['Status'] == 1)
           {
-            
+                String shared_user = jsonEncode(User.fromJson(jsonData[0]));
                 CoolAlert.show(
                   context: context,
                   type: CoolAlertType.success,
@@ -115,15 +116,16 @@ class LoginSignupController{
         
   }
 
-  updateProfile(BuildContext context)async{
+  updateProfile(BuildContext context,String fname, String lname, String mobile,String email)async{
     UserProvider usp = Provider.of<UserProvider>(context, listen: false);
+    SharedPreferences preferences = await SharedPreferences.getInstance();
     String username = 'Uwindsor';
     String password = 'MAC@2022';
     String basicAuth = 'Basic ' + base64Encode(utf8.encode('$username:$password'));
 
     http.Response response = await http.post(
         Uri.parse(
-        "http://bookshelfdev-001-site1.ctempurl.com/api/BookShelf/USP_CRUD_UserMaster"),
+        "http://bookhookase-001-site1.ctempurl.com/api/BookShelf/USP_CRUD_UserMaster"),
         headers: <String, String>{
          // "Accept": "application/json",
           "content-type": "application/json",
@@ -131,23 +133,43 @@ class LoginSignupController{
         },
         body: jsonEncode(
           <String, dynamic>{
-              "UserID" : 16,//usp.user!.UserId,
-              "FirstName":"Pushti",
-              "LastName":"Thakkar",
-              "PhoneNumber" : "2269756758",
-              "EmailID": "abc7rr71@gmail.com",
-              "Password":"abc2@2222U",
-              "StateName":"Windsor",
-              "CityName": "Windsor",
+              "UserID" : usp.user!.UserId,
+              "FirstName": fname,
+              "LastName": lname,
+              "PhoneNumber" : mobile,
+              "EmailID": email,
+              "Password":"Abc@1666",
               "ZipID" : 202076,
               "SecurityQuestionID" : 1,
               "SecurityAnswer" : "Florida",
               "MODE" : 2  
           },
         ));
-        print(response.body);
+       // print(response.body);
         List<dynamic> jsonData = jsonDecode(response.body);
-        print(jsonData[0]['Remarks']);
+      //  print(jsonData[0]);
+        if(jsonData[0]['Status']==1){
+
+          String shared_user = jsonEncode(User.fromJson(jsonData[0]));
+          preferences.setString("sUser", shared_user);
+
+          usp.user = User.fromJson(jsonData[0]);
+          usp.notifyListeners();
+
+          CoolAlert.show(
+                  context: context,
+                  type: CoolAlertType.success,
+                  width: 75,
+                  title: 'Updated successfully!',
+                 // text: jsonData[0]['Remarks'],
+                  onConfirmBtnTap: (){
+                    Navigator.pop(context);
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DashboardScreen()));
+                  }
+                  
+                );
+        }
+        
     
   }
 

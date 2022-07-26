@@ -25,7 +25,7 @@ class DrawerTray extends StatelessWidget {
     UserProvider userProvider = Provider.of<UserProvider>(context, listen: false);
     String? l1 = userProvider.user!.FirstName;
     String? l2 = userProvider.user!.LastName;
-    String? add1 = userProvider.user!.CityName;
+    String? add1 = userProvider.user!.EmailID;
     String? zip = userProvider.user!.ZipName;
     
     return Drawer(
