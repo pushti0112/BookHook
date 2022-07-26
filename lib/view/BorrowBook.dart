@@ -1,11 +1,15 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:book_hook/controller/BorrowBookController.dart';
+import 'package:book_hook/provider/UserProvider.dart';
+import 'package:book_hook/view/BorrowResultScreen.dart';
 import 'package:book_hook/widget/drawer_tray.dart';
 import 'package:flutter/material.dart';
 import '../global/AppColors.dart';
 import 'SplashScreen.dart';
 import 'package:sizer/sizer.dart';
-import '';
-
+import 'package:provider/provider.dart';
+import 'package:searchfield/searchfield.dart';
 class BorrowBook extends StatefulWidget {
   const BorrowBook({Key? key}) : super(key: key);
 
@@ -20,7 +24,13 @@ class _BorrowBookState extends State<BorrowBook> {
     'bobcat',
     'chameleon',
   ];
-
+  String? _dropDownValue;
+  final items =<String> [
+    'Action and Adventure ', 'Classics', 'Comic', 
+    'Mystery', 'Fantasy', 'Historic Fiction',
+    'Horror', 'Romance', 'Science', 'Short Stories'
+  ];
+  int index=0;
 
     @override
   void initState(){
@@ -36,6 +46,14 @@ class _BorrowBookState extends State<BorrowBook> {
 
   @override
   Widget build(BuildContext context) {
+
+    UserProvider userProvider = Provider.of<UserProvider>(context, listen: false);
+    TextEditingController radius = TextEditingController();
+    TextEditingController bTitle = TextEditingController();
+    TextEditingController fNameC = TextEditingController(text: userProvider.user!.FirstName);
+    TextEditingController lNameC = TextEditingController(text: userProvider.user!.LastName);
+    TextEditingController PhnNoC = TextEditingController(text: userProvider.user!.PhoneNumber);
+    
     return Scaffold(
         appBar: AppBar(
           title: (const Text('Borrow Book')),
@@ -44,109 +62,147 @@ class _BorrowBookState extends State<BorrowBook> {
           backgroundColor: AppColors.primary,
         ),
         drawer: DrawerTray(),
-        body: ListView(physics: const BouncingScrollPhysics(), children: [
-          const SizedBox(height: 30),
-          SearchText(context, kOptions),
-          const SizedBox(height: 30),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25.0),
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.grey[200],
-                border: Border.all(color: Colors.white),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: const TextField(
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black45, width: 0.5),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black, width: 1),
-                  ),
-                  hintText: "Enter BookType",
+        body: Container(
+        padding: EdgeInsets.all(16),
+        color: Colors.grey[50],
+        child: Column(children: [
+          Expanded(
+              child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(
+                child: ListView(
+                  children: [
+                    SizedBox(
+                      height: 16,
+                    ),
+                    DecoratedBox(
+                        decoration:  BoxDecoration(
+                          color: Colors.grey[200],
+                          border: Border.all(color: Colors.black38),
+                          borderRadius: BorderRadius.circular(6),
+                         ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 6),
+                          child: DropdownButton(
+                            hint: _dropDownValue == null
+                                ? Text('Book Type', style: TextStyle(decoration: TextDecoration.none),)
+                                : Text(_dropDownValue!,style: TextStyle(color:Colors.black),),
+                            isExpanded: true,
+                            iconSize: 30.0,
+                            items: items.map((val) {
+                                return DropdownMenuItem<String>(
+                                  value: val,
+                                  child: Text(val),
+                                );
+                              },
+                            ).toList(),
+                            onChanged: (newval) {
+                              setState(
+                                () {
+                                  _dropDownValue = newval.toString();
+                                   index = items.indexOf(_dropDownValue!);
+                                },
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                      height: 16,
+                    ),
+                    TextFormField("Enter Book Title",bTitle,true),
+                    // SizedBox(
+                    //   height: 16,
+                    // ),
+                    // SearchText(context, kOptions),
+                    SizedBox(
+                      height: 16,
+                    ),
+                    Form(
+                      
+                    //key: ,
+                    child: SearchField(
+                      
+                      marginColor: Colors.grey[200],  
+                      suggestions: kOptions.map((e) =>
+                        SearchFieldListItem(e)).toList(),
+                      suggestionState: Suggestion.expand,
+                      textInputAction: TextInputAction.next,
+
+                      hint: 'SearchField Example 2',
+                      hasOverlay: false,
+                      searchStyle: TextStyle(
+                        fontSize: 18,
+                        color: Colors.black.withOpacity(0.8),
+                      ),
+                      validator: (x) {
+                        if (!_dropDownValue!.contains(x!) || x.isEmpty) {
+                        return 'Please Enter a valid State';
+                        }
+                      return null;
+                      },
+                      searchInputDecoration: InputDecoration(
+                        
+                        focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                        color: Colors.black.withOpacity(0.8),
+                        
+                        ),
+                        ),
+                        border: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.red),
+                        ),
+                      ),
+                      maxSuggestionsInViewPort: 6,
+                      itemHeight: 50,
+                    
+                  )
+                    ),
+                    SizedBox(
+                      height: 16,
+                    ),
+                    TextFormField("Enter Radius",radius,true),
+                    // ignore: prefer_const_constructors
+                    SizedBox(
+                      height: 16,
+                    ),
+                    
+                    SizedBox(
+                      height: 16,
+                    ),
+                  ],
                 ),
               ),
-            ),
-          ),
-          const SizedBox(height: 10),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25.0),
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.grey[200],
-                border: Border.all(color: Colors.white),
-                borderRadius: BorderRadius.circular(12),
+              SizedBox(
+                height: 16,
               ),
-              child: const TextField(
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black45, width: 0.5),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black, width: 1),
-                  ),
-                  hintText: "Enter Location",
-                ),
+              Container(
+                width: double.maxFinite,
+                child: ElevatedButton(
+                  child: Text("Search Books"),
+                  style: ElevatedButton.styleFrom(
+                      primary: AppColors.primary,
+                      padding: EdgeInsets.all(16)),
+                  onPressed: () async{
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => BorrowResultScreen()));
+                      // final snackBar = SnackBar(
+                      //   duration: Duration(seconds: 3),
+                      //   behavior: SnackBarBehavior.floating,
+                      //   content: const Text('Passwords does not match'),
+                      //   margin: EdgeInsets.symmetric(vertical: 16,horizontal: 8),
+                      //   backgroundColor: Colors.black87,
+                      // );
+                      // ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  },
+                )
               ),
-            ),
-          ),
-          const SizedBox(height: 10),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25.0),
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.grey[200],
-                border: Border.all(color: Colors.white),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: const TextField(
-                decoration: const InputDecoration(
-                  enabledBorder: const OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black45, width: 0.5),
-                  ),
-                  focusedBorder: const OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black, width: 1),
-                  ),
-                  hintText: "Enter Radius",
-                ),
-              ),
-            ),
-          ),
-          const SizedBox(height: 40),
-          Container(
-              width: double.maxFinite,
-              margin: EdgeInsets.symmetric(horizontal: 25.0),
-              child: ElevatedButton(
-                child: const Text("Save Details"),
-                style: ElevatedButton.styleFrom(
-                    primary: AppColors.primary,
-                    padding: const EdgeInsets.all(20)),
-                onPressed: () async {
-                  //   // userProvider.user = await LoginSignupController()
-                  //   //     .getLoggedInUser(emailIdC.text, passC.text);
-
-                  //   // userProvider.notifyListeners();
-
-                  //   // print(userProvider.user?.Status ?? 0);
-
-                  //   if (userProvider.user!.Status == 1) {
-                  //     Navigator.pushReplacement(context,
-                  //         MaterialPageRoute(builder: (context) => HomeScreen()));
-                  //   } else {
-                  final snackBar = SnackBar(
-                    duration: const Duration(seconds: 3),
-                    behavior: SnackBarBehavior.floating,
-                    content: Text('print something'),
-                    margin:
-                        const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
-                    backgroundColor: Colors.black87,
-                  );
-
-                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                },
-              )),
-        ]));
+            ],
+          ),),
+        ]),
+      ),
+        );
   }
   Widget SearchText(BuildContext context,List<String> kOptions) {
     return Autocomplete<String>(
@@ -165,3 +221,34 @@ class _BorrowBookState extends State<BorrowBook> {
   }
 }
 
+Widget TextFormField(String hint,TextEditingController controller, bool flag) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.grey[200],
+        border: Border.all(color: Colors.white),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: TextField(
+        controller: controller,
+        enabled: flag,
+  
+        style: TextStyle(
+          color: flag==false?Colors.black38:Colors.black,
+        ),
+        decoration: InputDecoration(
+          
+          disabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.black45, width: 0.5),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.black45, width: 0.5),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.black, width: 1),
+          ),
+          hintText: hint,
+        ),
+      ),
+    );
+  
+  }
