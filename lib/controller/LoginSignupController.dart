@@ -10,7 +10,9 @@ import '../model/UserModel.dart';
 import 'package:provider/provider.dart';
 
 class LoginSignupController{
-
+  // Future<User> getSecureUser(String email, String ques, String ans){
+  //   return user[0];
+  // }
   Future<User> getLoggedInUser(String name,String pass) async{
     SharedPreferences preferences = await SharedPreferences.getInstance();
     List<User> user = [];
@@ -54,7 +56,7 @@ class LoginSignupController{
       return user[0];   
   }
 
-  registerUser(String fname,String lname,String phn, String email, String pass, String state, String city,BuildContext context)async{
+  registerUser(String fname,String lname,String phn, String email, String pass,int qid, String ans, String state, String city,BuildContext context)async{
     String username = 'Uwindsor';
     String password = 'MAC@2022';
     String basicAuth = 'Basic ' + base64Encode(utf8.encode('$username:$password'));
@@ -77,8 +79,8 @@ class LoginSignupController{
             "StateName": state,
             "CityName": city,
             "ZipID": "N9B1M6",
-            "SecurityQuestionID" : 1,
-            "SecurityAnswer" : "Florida",
+            "SecurityQuestionID" : qid,
+            "SecurityAnswer" : ans,
             "MODE" : 1
           },
         ));

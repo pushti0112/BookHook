@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:book_hook/controller/LoginSignupController.dart';
 import 'package:book_hook/view/DashboardScreen.dart';
+import 'package:book_hook/view/ForgotPasswordScreen.dart';
 import 'package:book_hook/view/HomeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
@@ -23,8 +24,8 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
 
-  TextEditingController emailIdC = TextEditingController(text: "testid@gmail.com");
-  TextEditingController passC = TextEditingController(text: "Abc@1666");
+  TextEditingController emailIdC = TextEditingController(text: "vkra.fichadia@gmail.com");
+  TextEditingController passC = TextEditingController(text: "Test@123");
   bool showPasswordText = false;
  
 
@@ -138,7 +139,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           "Forgot Password ?",
                           style: TextStyle(color: AppColors.primary),
                         ),
-                        onPressed: () async {},
+                        onPressed: () async {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => ForgotPasswordScreen()));
+                        },
                       ),
                     ),
                     SizedBox(

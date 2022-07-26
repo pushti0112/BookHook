@@ -49,41 +49,43 @@ class _BorrowedBooksScreenState extends State<BorrowedBooksScreen> {
           : Container(
             child: Column(
               children: [
-                Container(
-                height: double.maxFinite,
-                padding: EdgeInsets.all(16),
-                child: ListView.separated(
-                  shrinkWrap: true,
-                  itemBuilder: (_, i) =>Dismissible(
-                    direction: DismissDirection.endToStart,
-                    key: UniqueKey(),
-                      
-                      onDismissed: (direction) async{
-                         
-                          await LendBookController().deleteLendBook(context,i);
-                          print("lend count"+lsp.lendCount.toString());
-                          
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(SnackBar(content: Text('$i dismissed')));
-                      },
-                    background: Column(
-                      children: [
+                Expanded(
+                  child: Container(
+                  height: double.maxFinite,
+                  padding: EdgeInsets.all(16),
+                  child: ListView.separated(
+                    shrinkWrap: true,
+                    itemBuilder: (_, i) =>Dismissible(
+                      direction: DismissDirection.endToStart,
+                      key: UniqueKey(),
                         
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            color: AppColors.primarySubtle,
+                        onDismissed: (direction) async{
+                           
+                            await LendBookController().deleteLendBook(context,i);
+                            print("lend count"+lsp.lendCount.toString());
+                            
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(SnackBar(content: Text('$i dismissed')));
+                        },
+                      background: Column(
+                        children: [
+                          
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              color: AppColors.primarySubtle,
+                            ),
+                            child: Align(alignment: Alignment.centerRight,child: IconButton(padding: EdgeInsets.fromLTRB(0, 0, 8, 0),onPressed: (){}, icon: Icon(Icons.delete_outline,color: AppColors.error,size: 28,))),
                           ),
-                          child: Align(alignment: Alignment.centerRight,child: IconButton(padding: EdgeInsets.fromLTRB(0, 0, 8, 0),onPressed: (){}, icon: Icon(Icons.delete_outline,color: AppColors.error,size: 28,))),
-                        ),
-                      ],
+                        ],
+                      ),
+                      child: LendedBookCard(i,lsp)
                     ),
-                    child: LendedBookCard(i,lsp)
+                    separatorBuilder:(_, i) => SizedBox(height: 8,),
+                     itemCount: lsp.lendedbooks!.length 
+                     //lsp.lendCount?.toInt() ?? 0,
                   ),
-                  separatorBuilder:(_, i) => SizedBox(height: 8,),
-                   itemCount: lsp.lendedbooks!.length 
-                   //lsp.lendCount?.toInt() ?? 0,
-                ),
+                  ),
                 ),
               ],
             ),
