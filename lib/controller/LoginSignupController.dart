@@ -1,3 +1,4 @@
+import 'package:book_hook/provider/UserProvider.dart';
 import 'package:book_hook/view/LoginScreen.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -5,6 +6,7 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cool_alert/cool_alert.dart';
 import '../model/UserModel.dart';
+import 'package:provider/provider.dart';
 
 class LoginSignupController{
 
@@ -18,7 +20,7 @@ class LoginSignupController{
     
     http.Response response = await http.post(
         Uri.parse(
-            "http://bookshelfdev-001-site1.ctempurl.com/api/BookShelf/USP_CRUD_LoginDetails"),
+            "http://bookhookase-001-site1.ctempurl.com/api/BookShelf/USP_CRUD_LoginDetails"),
         headers: <String, String>{
          // "Accept": "application/json",
           "content-type": "application/json",
@@ -58,7 +60,7 @@ class LoginSignupController{
 
     http.Response response = await http.post(
         Uri.parse(
-        "http://bookshelfdev-001-site1.ctempurl.com/api/BookShelf/USP_CRUD_UserMaster"),
+        "http://bookhookase-001-site1.ctempurl.com/api/BookShelf/USP_CRUD_UserMaster"),
         headers: <String, String>{
          // "Accept": "application/json",
           "content-type": "application/json",
@@ -73,7 +75,10 @@ class LoginSignupController{
             "Password": password,
             "StateName": state,
             "CityName": city,
-            "ZipName": "N9B1M6"
+            "ZipID": "N9B1M6",
+            "SecurityQuestionID" : 1,
+            "SecurityAnswer" : "Florida",
+            "MODE" : 1
           },
         ));
         
@@ -108,7 +113,45 @@ class LoginSignupController{
           }        
         }
         
-      }
+  }
+
+  updateProfile(BuildContext context)async{
+    UserProvider usp = Provider.of<UserProvider>(context, listen: false);
+    String username = 'Uwindsor';
+    String password = 'MAC@2022';
+    String basicAuth = 'Basic ' + base64Encode(utf8.encode('$username:$password'));
+
+    http.Response response = await http.post(
+        Uri.parse(
+        "http://bookshelfdev-001-site1.ctempurl.com/api/BookShelf/USP_CRUD_UserMaster"),
+        headers: <String, String>{
+         // "Accept": "application/json",
+          "content-type": "application/json",
+          "authorization": basicAuth
+        },
+        body: jsonEncode(
+          <String, dynamic>{
+              "UserID" : 16,//usp.user!.UserId,
+              "FirstName":"Pushti",
+              "LastName":"Thakkar",
+              "PhoneNumber" : "2269756758",
+              "EmailID": "abc7rr71@gmail.com",
+              "Password":"abc2@2222U",
+              "StateName":"Windsor",
+              "CityName": "Windsor",
+              "ZipID" : 202076,
+              "SecurityQuestionID" : 1,
+              "SecurityAnswer" : "Florida",
+              "MODE" : 2  
+          },
+        ));
+        print(response.body);
+        List<dynamic> jsonData = jsonDecode(response.body);
+        print(jsonData[0]['Remarks']);
+    
+  }
+
+
 
 
   

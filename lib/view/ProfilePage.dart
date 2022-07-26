@@ -120,33 +120,6 @@ class _ProfilePageState extends State<ProfilePage> {
                     SizedBox(
                       height: 16,
                     ),
-                    // DecoratedBox(
-                    //   decoration:  BoxDecoration(
-                    //     color: Colors.grey[200],
-                    //     border: Border.all(color: Colors.black38),
-                    //     borderRadius: BorderRadius.circular(6),
-                    //     ),
-                    //   child: Padding(
-                    //     padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 6),
-                    //     child: DropdownButton(
-                    //       hint: _dropDownValue == null
-                    //           ? Text('Book Type', style: TextStyle(decoration: TextDecoration.none),)
-                    //           : Text(_dropDownValue!,style: TextStyle(color:Colors.black),),
-                    //       isExpanded: true,
-                    //       iconSize: 30.0,
-                    //       items: borrowBookProvider.postals.forEach((key,val) {
-                              
-                    //       ).toList(),
-                    //       onChanged: (newval) {
-                    //         setState(() {
-                    //             _dropDownValue = newval.toString();
-                    //               index = items.indexOf(_dropDownValue!);
-                    //           },
-                    //         );
-                    //       },
-                    //     ),
-                    //   ),
-                    // ),
                     SizedBox(
                       height: 16,
                     ),
@@ -164,15 +137,15 @@ class _ProfilePageState extends State<ProfilePage> {
                       primary: AppColors.primary,
                       padding: EdgeInsets.all(16)),
                   onPressed: () async{
-                    //
-                      final snackBar = SnackBar(
-                        duration: Duration(seconds: 3),
-                        behavior: SnackBarBehavior.floating,
-                        content: const Text('Passwords does not match'),
-                        margin: EdgeInsets.symmetric(vertical: 16,horizontal: 8),
-                        backgroundColor: Colors.black87,
-                      );
-                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    await LoginSignupController().updateProfile(context);
+                      // final snackBar = SnackBar(
+                      //   duration: Duration(seconds: 3),
+                      //   behavior: SnackBarBehavior.floating,
+                      //   content: const Text('Passwords does not match'),
+                      //   margin: EdgeInsets.symmetric(vertical: 16,horizontal: 8),
+                      //   backgroundColor: Colors.black87,
+                      // );
+                      // ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   },
                 )
               ),
