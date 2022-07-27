@@ -80,7 +80,7 @@ class LendBookController{
 
     http.Response response = await http.post(
         Uri.parse(
-        "http://bookshelfdev-001-site1.ctempurl.com/api/BookShelf/USP_CRUD_LendBook"),
+        "http://bookhookase-001-site1.ctempurl.com/api/BookShelf/USP_CRUD_LendBook"),
         headers: <String, String>{
          // "Accept": "application/json",
           "content-type": "application/json",
@@ -145,7 +145,7 @@ class LendBookController{
 
     http.Response response = await http.post(
         Uri.parse(
-        "http://bookshelfdev-001-site1.ctempurl.com/api/BookShelf/USP_CRUD_LendBook"),
+        "http://bookhookase-001-site1.ctempurl.com/api/BookShelf/USP_CRUD_LendBook"),
         headers: <String, String>{
          // "Accept": "application/json",
           "content-type": "application/json",
@@ -187,7 +187,7 @@ class LendBookController{
 
     http.Response response = await http.post(
         Uri.parse(
-        "http://bookshelfdev-001-site1.ctempurl.com/api/BookShelf/USP_CRUD_LendBook"),
+        "http://bookhookase-001-site1.ctempurl.com/api/BookShelf/USP_CRUD_LendBook"),
         headers: <String, String>{
          // "Accept": "application/json",
           "content-type": "application/json",
