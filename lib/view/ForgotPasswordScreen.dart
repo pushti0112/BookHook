@@ -4,7 +4,6 @@ import 'package:book_hook/controller/LoginSignupController.dart';
 import 'package:book_hook/global/AppColors.dart';
 import 'package:book_hook/provider/UserProvider.dart';
 import 'package:book_hook/view/DashboardScreen.dart';
-import 'package:book_hook/view/PasswordReset.dart';
 import 'package:book_hook/view/RegisterScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
