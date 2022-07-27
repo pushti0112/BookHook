@@ -12,12 +12,14 @@ class User{
   String? StateName;
   int? CityID;
   String? CityName;
+  int? SecurityQuestionID;
+  String? SecurityAnswer;
   int? ZipID;
   String? ZipName;
   int? Status;
 
   User(
-      {this.UserId,this.FirstName,this.LastName,this.PhoneNumber,this.EmailID,this.UserName,this.Password,this.StateID,this.StateName,this.CityID,this.CityName,this.ZipID,this.ZipName,this.Status});
+      {this.UserId,this.FirstName,this.LastName,this.PhoneNumber,this.EmailID,this.UserName,this.Password,this.StateID,this.StateName,this.CityID,this.CityName,this.SecurityQuestionID,this.SecurityAnswer,this.ZipID,this.ZipName,this.Status});
 
   User.fromJson(Map<String, dynamic> json) {
     UserId = json['UserId'];
@@ -31,6 +33,8 @@ class User{
     StateName = json['StateName'];
     CityID = json['CityID'];
     CityName = json['CityName'];
+    SecurityQuestionID = json['SecurityQuestionID'];
+    SecurityAnswer = json["SecurityAnswer"];
     ZipID = json['ZipID'];
     ZipName = json['ZipName'];
     Status = json['Status'];
@@ -49,6 +53,8 @@ class User{
     user['StateName'] = this.StateName;
     user['CityID'] = this.CityID;
     user['CityName'] = this.CityName;
+    user['SecurityQuestionID'] = this.SecurityQuestionID;
+    user['SecurityAnswer'] = this.SecurityAnswer;
     user['ZipID'] = this.ZipID;
     user['ZipName'] = this.ZipName;
     user['Status'] = this.Status;

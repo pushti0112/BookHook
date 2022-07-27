@@ -56,7 +56,9 @@ class LoginSignupController{
     
       return user[0];   
   }
+  updatePassword(){
 
+  }
   registerUser(String fname,String lname,String phn, String email, String pass,int qid, String ans, String state, String city,BuildContext context)async{
     String username = 'Uwindsor';
     String password = 'MAC@2022';
@@ -76,22 +78,23 @@ class LoginSignupController{
             "LastName": lname,
             "PhoneNumber" : phn,
             "EmailID": email,
-            "Password": password,
+            "Password": pass,
             "StateName": state,
             "CityName": city,
-            "ZipID": "N9B1M6",
+            "ZipID": 202076,
             "SecurityQuestionID" : qid,
             "SecurityAnswer" : ans,
             "MODE" : 1
           },
         ));
-        
+        print(jsonDecode(response.body));
         List<dynamic> jsonData = jsonDecode(response.body);
 
         if (jsonData != null) {
           if(jsonData[0]['Status'] == 1)
           {
                 String shared_user = jsonEncode(User.fromJson(jsonData[0]));
+                print("User = $shared_user");
                 CoolAlert.show(
                   context: context,
                   type: CoolAlertType.success,

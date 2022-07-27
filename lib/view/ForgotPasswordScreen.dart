@@ -18,15 +18,20 @@ class ForgotPasswordScreen extends StatefulWidget {
 }
 
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
-  TextEditingController emailIdC = TextEditingController(text: "testid@gmail.com");
+  TextEditingController emailIdC = TextEditingController();
   TextEditingController ansC = TextEditingController();
   TextEditingController passC = TextEditingController();
   TextEditingController cPassC = TextEditingController();
   String? _dropDownValue;
-  final items =<String> [
-    'In what city were you born?', 'What is the name of your favorite pet?',
-    'What high school did you attend?', 'What is the name of your first school?', 'What was the make of your first car?',
-    'What was your favorite food as a child?', 'Where did you meet your spouse?'
+  var qitems =<String> [
+    "In what city were you born?", 
+    "What is the name of your favorite pet?",
+    "What is your mother's maiden name",     
+    "What high school did you attend?",
+    "What is the name of your first school?",
+    "What was the make of your first car?",
+    "What was your favorite food as a child?",
+    "Where did you meet your spouse?"
   ];
   int index=0;
   bool showPasswordText = false;
@@ -34,6 +39,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   Widget build(BuildContext context) {
 
     UserProvider userProvider = Provider.of<UserProvider>(context, listen: false);
+    print("Question = " + userProvider.user!.SecurityQuestionID.toString());
+    print(userProvider.user!.SecurityAnswer);
     return Container(
       child: SafeArea(
           child: Scaffold(
@@ -124,7 +131,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                                 : Text(_dropDownValue!,style: TextStyle(color:Colors.black),),
                             isExpanded: true,
                             iconSize: 30.0,
-                            items: items.map((val) {
+                            items: qitems.map((val) {
                                 return DropdownMenuItem<String>(
                                   value: val,
                                   child: Text(val),
@@ -135,7 +142,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                               setState(
                                 () {
                                   _dropDownValue = newval.toString();
-                                   index = items.indexOf(_dropDownValue!);
+                                   index = qitems.indexOf(_dropDownValue!);
                                 },
                               );
                             },
