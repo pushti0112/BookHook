@@ -138,7 +138,21 @@ super.initState();
                       primary: AppColors.primary,
                       padding: EdgeInsets.all(16)),
                   onPressed: () async{
-                    await LoginSignupController().updateProfile(context,fNameC.text,lNameC.text,PhnNoC.text,emailIdC.text);
+                    print("Controller = " + fNameC.toString() + "UFNm = " + userProvider.user!.FirstName.toString());
+                    if(fNameC.text==userProvider.user!.FirstName&&lNameC.text==userProvider.user!.LastName&&PhnNoC.text==userProvider.user!.PhoneNumber){
+                        final snackBar = SnackBar(
+                        duration: Duration(seconds: 3),
+                        behavior: SnackBarBehavior.floating,
+                        content: Text("No Changes Found"),
+                        margin: EdgeInsets.symmetric(vertical: 16,horizontal: 8),
+                        backgroundColor: Colors.black87,
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    }
+                    else{
+                        await LoginSignupController().updateProfile(context,fNameC.text,lNameC.text,PhnNoC.text,emailIdC.text);
+                    }
+                    
                       // final snackBar = SnackBar(
                       //   duration: Duration(seconds: 3),
                       //   behavior: SnackBarBehavior.floating,
