@@ -242,15 +242,16 @@ class LoginSignupController{
               "FirstName": fname,
               "LastName": lname,
               "PhoneNumber" : mobile,
-              "EmailID": "vkra.fichadia@gmail.com",
-              "Password":"Abc@1666",
+              "EmailID": usp.user!.EmailID,
+              "Password":usp.user!.Password,
               "ZipID" : 202076,
-              "SecurityQuestionID" : 1,
-              "SecurityAnswer" : "Florida",
+              "SecurityQuestionID" : usp.user!.SecurityQuestionID,
+              "SecurityAnswer" : usp.user!.SecurityAnswer,
               "MODE" : 2  
           },
         ));
-       // print(response.body);
+       print("Email: " + usp.user!.EmailID.toString() + "UEmail = " );
+       print
         List<dynamic> jsonData = jsonDecode(response.body);
       //  print(jsonData[0]);
         if(jsonData[0]['Status']==1){
@@ -259,6 +260,7 @@ class LoginSignupController{
           preferences.setString("sUser", shared_user);
 
           usp.user = User.fromJson(jsonData[0]);
+
           usp.notifyListeners();
 
           CoolAlert.show(

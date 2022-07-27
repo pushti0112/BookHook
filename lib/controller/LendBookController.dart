@@ -150,7 +150,7 @@ class LendBookController{
          // "Accept": "application/json",
           "content-type": "application/json",
           "authorization": basicAuth
-        },
+        },  
         body: jsonEncode(
           <String, dynamic>{
             "UserId" : uid,
