@@ -24,7 +24,7 @@ class BorrowBookController{
 
     http.Response response = await http.post(
         Uri.parse(
-        "http://bookshelfdev-001-site1.ctempurl.com/api/BookShelf/USP_FETCH_CanadianPostalCodes"),
+        "http://bookhookase-001-site1.ctempurl.com/api/BookShelf/USP_FETCH_CanadianPostalCodes"),
         headers: <String, String>{
          // "Accept": "application/json",
           "content-type": "application/json",

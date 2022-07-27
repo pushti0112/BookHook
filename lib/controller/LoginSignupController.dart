@@ -56,8 +56,92 @@ class LoginSignupController{
     
       return user[0];   
   }
-  updatePassword(){
+  //Gets UserID for body parameter for Password changing API
+  updatePassword(String email,int qid, String ans,String pass, String cPass, BuildContext context) async{
+    String username = 'Uwindsor';
+    String password = 'MAC@2022';
+    String basicAuth = 'Basic ' + base64Encode(utf8.encode('$username:$password'));
 
+    http.Response response = await http.post(
+        Uri.parse(
+        "http://bookhookase-001-site1.ctempurl.com/api/BookShelf/USP_FETCH_ValidatePasswordChange"),
+        headers: <String, String>{
+         // "Accept": "application/json",
+          "content-type": "application/json",
+          "authorization": basicAuth
+        },
+        body: jsonEncode(
+          <String, dynamic>{
+            "EmailID":email,
+            "SecurityQuestionID" : qid,
+            "SecurityAnswer" : ans
+        },
+        ));
+        List<dynamic> jsonData = jsonDecode(response.body);
+        //If MissMatch occurs If will be executed
+        if(response.body.contains("Status")){
+            final snackBar = SnackBar(
+              duration: Duration(seconds: 3),
+              behavior: SnackBarBehavior.floating,
+              content: Text(jsonData[0]['Remarks']),
+              margin: EdgeInsets.symmetric(vertical: 16,horizontal: 8),
+              backgroundColor: Colors.black87,
+            );
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        }
+        else{
+          //Matches the question, answer and email ID with DB
+          String qid1 =  jsonData[0]['SecurityQuestionID'].toString();
+          String qAns1 = jsonData[0]['SecurityAnswer'];
+          print("NewID = $qid ResID = $qid1 NewAns = $ans ResAns = $qAns1");
+          if(qid1==qid.toString() && qAns1==ans){
+              print("True" + jsonData[0]['UserId'].toString());
+              if(pass == cPass){
+                changePassword(jsonData[0]['UserId'], pass);
+              }
+              else{
+                //If new Password doesnot matches snackbar is displayed
+                final snackBar = SnackBar(
+                duration: Duration(seconds: 3),
+                behavior: SnackBarBehavior.floating,
+                content: Text("Passwords Do not Match"),
+                margin: EdgeInsets.symmetric(vertical: 16,horizontal: 8),
+                backgroundColor: Colors.black87,
+                );
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              }
+          }
+          else{
+            print("False");
+          }
+        }
+        
+        // print("Response: " + jsonDecode(response.body)[0]['SecurityQuestionID']);
+        // if(response.body[0]["SecurityQuestionID"]==qid&&response.body["SecurityAnswer"]==ans.);
+  }
+  //Changes Password through API
+  changePassword(int uid, String newPass)async{
+    String username = 'Uwindsor';
+    String password = 'MAC@2022';
+    String basicAuth = 'Basic ' + base64Encode(utf8.encode('$username:$password'));
+
+    http.Response response = await http.post(
+        Uri.parse(
+        "http://bookhookase-001-site1.ctempurl.com/api/BookShelf/USP_FETCH_ValidatePasswordChange"),
+        headers: <String, String>{
+         // "Accept": "application/json",
+          "content-type": "application/json",
+          "authorization": basicAuth
+        },
+        //BUG: API Returns Failed Status
+        body: jsonEncode(
+          <String, dynamic>{
+            "UserID" : uid,
+            "Password":newPass,
+            "MODE" : 3
+          }
+        ));
+        print("Final = " + response.body);
   }
   registerUser(String fname,String lname,String phn, String email, String pass,int qid, String ans, String state, String city,BuildContext context)async{
     String username = 'Uwindsor';

@@ -39,8 +39,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   Widget build(BuildContext context) {
 
     UserProvider userProvider = Provider.of<UserProvider>(context, listen: false);
-    print("Question = " + userProvider.user!.SecurityQuestionID.toString());
-    print(userProvider.user!.SecurityAnswer);
+    // print("Question = " + userProvider.user!.SecurityQuestionID.toString());
+    // print(userProvider.user!.SecurityAnswer);
     return Container(
       child: SafeArea(
           child: Scaffold(
@@ -233,25 +233,25 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                               primary: AppColors.primary,
                               padding: EdgeInsets.all(16)),
                           onPressed: () async{
-                            // userProvider.user = await LoginSignupController().getLoggedInUser(emailIdC.text);
-                            userProvider.notifyListeners();
+                            LoginSignupController().updatePassword(emailIdC.text,index+1, ansC.text, passC.text, cPassC.text, context);
+                            // userProvider.notifyListeners();
                 
-                            print(userProvider.user?.Status ?? 0);
-                            if(userProvider.user!.Status==1)
-                            {
-                              // ignore: use_build_context_synchronously
-                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DashboardScreen()));
-                            }
-                            else{
-                              final snackBar = SnackBar(
-                                duration: Duration(seconds: 3),
-                                behavior: SnackBarBehavior.floating,
-                                content: const Text('Invalid Credentials'),
-                                margin: EdgeInsets.symmetric(vertical: 16,horizontal: 8),
-                                backgroundColor: Colors.black87,
-                              );
-                              ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                            }         
+                            // print(userProvider.user?.Status ?? 0);
+                            // if(userProvider.user!.Status==1)
+                            // {
+                            //   // ignore: use_build_context_synchronously
+                            //   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DashboardScreen()));
+                            // }
+                            // else{
+                            //   final snackBar = SnackBar(
+                            //     duration: Duration(seconds: 3),
+                            //     behavior: SnackBarBehavior.floating,
+                            //     content: const Text('Invalid Credentials'),
+                            //     margin: EdgeInsets.symmetric(vertical: 16,horizontal: 8),
+                            //     backgroundColor: Colors.black87,
+                            //   );
+                            //   ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                            // }         
                           },
                         )),
                     
