@@ -48,7 +48,7 @@ class _LendedBookHistoryScreenState extends State<LendedBookHistoryScreen> {
       
       body: Consumer<LendBookProvider>(
         builder: (BuildContext context, lsp, child) { 
-          return lsp.lendedbooks!.length == 0
+          return lsp.lendCount == 0
           ? Container(
               height: double.maxFinite,
               child: Center(
@@ -80,7 +80,10 @@ class _LendedBookHistoryScreenState extends State<LendedBookHistoryScreen> {
                   ScaffoldMessenger.of(context)
                       .showSnackBar(SnackBar(content: Text('Boook ${i+1} deleted')));
                       setState(() {
-                        
+                        lsp.lendCount = i;
+                        lsp.notifyListeners();
+                        print("count");
+                        print(lsp.lendCount);
                       });
                 },
               background: Container(
