@@ -14,6 +14,7 @@ class LoginSignupController{
   //   return user[0];
   // }
   Future<User> getLoggedInUser(String name,String pass) async{
+    print(name+pass);
     SharedPreferences preferences = await SharedPreferences.getInstance();
     List<User> user = [];
     String username = 'Uwindsor';
@@ -35,7 +36,7 @@ class LoginSignupController{
             "Password": pass
           },
         ));
-        
+        print(response.body);
         List<dynamic> jsonData = jsonDecode(response.body);
        
         if (jsonData != null) {
@@ -139,7 +140,7 @@ class LoginSignupController{
               "FirstName": fname,
               "LastName": lname,
               "PhoneNumber" : mobile,
-              "EmailID": email,
+              "EmailID": "vkra.fichadia@gmail.com",
               "Password":"Abc@1666",
               "ZipID" : 202076,
               "SecurityQuestionID" : 1,
