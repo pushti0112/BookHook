@@ -97,7 +97,7 @@ class LoginSignupController{
           if(qid1==qid.toString() && qAns1==ans){
               print("True" + jsonData[0]['UserId'].toString());
               if(pass == cPass){
-                changePassword(jsonData[0]['UserId'], pass);
+                changePassword(jsonData[0]['UserId'], pass,context);
               }
               else{
                 //If new Password doesnot matches snackbar is displayed
@@ -120,14 +120,14 @@ class LoginSignupController{
         // if(response.body[0]["SecurityQuestionID"]==qid&&response.body["SecurityAnswer"]==ans.);
   }
   //Changes Password through API
-  changePassword(int uid, String newPass)async{
+  changePassword(int uid, String newPass,BuildContext context)async{
     String username = 'Uwindsor';
     String password = 'MAC@2022';
     String basicAuth = 'Basic ' + base64Encode(utf8.encode('$username:$password'));
 
     http.Response response = await http.post(
         Uri.parse(
-        "http://bookhookase-001-site1.ctempurl.com/api/BookShelf/USP_FETCH_ValidatePasswordChange"),
+        "http://bookhookase-001-site1.ctempurl.com/api/bookShelf/USP_CRUD_UserMaster"),
         headers: <String, String>{
          // "Accept": "application/json",
           "content-type": "application/json",
@@ -142,6 +142,21 @@ class LoginSignupController{
           }
         ));
         print("Final = " + response.body);
+        List<dynamic> jsonData = jsonDecode(response.body);
+        if(jsonData[0]["Status"]==1){
+           CoolAlert.show(
+                  context: context,
+                  type: CoolAlertType.success,
+                  width: 75,
+                  title: 'Updated successfully!',
+                 // text: jsonData[0]['Remarks'],
+                  onConfirmBtnTap: (){
+                    Navigator.pop(context);
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+                  }
+                  
+                );
+        }
   }
   registerUser(String fname,String lname,String phn, String email, String pass,int qid, String ans, String state, String city,BuildContext context)async{
     String username = 'Uwindsor';
