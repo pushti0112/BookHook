@@ -42,7 +42,7 @@ class DrawerTray extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   CircleAvatar(
-                    backgroundImage: AssetImage("assets/images/profile-sample.png"),
+                    backgroundImage: AssetImage("assets/images/userdemo.png"),
                     backgroundColor: AppColors.primary,
                     radius: 50,
                   ),

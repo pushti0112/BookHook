@@ -167,6 +167,8 @@ class _LendABookPageState extends State<LendABookPage> {
                         ]
                       ),
                       SizedBox(height: 16),
+                      imageFile!=null? Text('Image Prieview',style: TextStyle(fontSize: 16),): Container(),
+                      SizedBox(height: 16),
                       imageFile!=null?Container(
                         height: 24.h,
                         width: 24.w,
