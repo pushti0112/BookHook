@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_interpolation_to_compose_strings, avoid_print
+
 import 'package:book_hook/provider/UserProvider.dart';
 import 'package:book_hook/view/DashboardScreen.dart';
 import 'package:book_hook/view/LoginScreen.dart';
@@ -250,19 +252,15 @@ class LoginSignupController{
               "MODE" : 2  
           },
         ));
-       print("Email: " + usp.user!.EmailID.toString() + "UEmail = " );
-       print
+        print("Email: " + usp.user!.EmailID.toString() + "UEmail = " );
         List<dynamic> jsonData = jsonDecode(response.body);
-      //  print(jsonData[0]);
         if(jsonData[0]['Status']==1){
 
+          // ignore: non_constant_identifier_names
           String shared_user = jsonEncode(User.fromJson(jsonData[0]));
           preferences.setString("sUser", shared_user);
-
           usp.user = User.fromJson(jsonData[0]);
-
           usp.notifyListeners();
-
           CoolAlert.show(
                   context: context,
                   type: CoolAlertType.success,
@@ -273,16 +271,9 @@ class LoginSignupController{
                     Navigator.pop(context);
                     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DashboardScreen()));
                   }
-                  
                 );
         }
         
     
   }
-
-
-
-
-  
-  
 }
