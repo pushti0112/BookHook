@@ -34,12 +34,15 @@ class BorrowBookController{
       if(response.body.isNotEmpty){
         print(response);
         List<dynamic> jsonData = jsonDecode(response.body);
-        
-          borrowBookProvider.postalCount = jsonData.length;
+
+        jsonData.forEach((element) {
+          borrowBookProvider.postals.add(element['POSTAL_CODE']);
+        });
+          borrowBookProvider.postalCount = borrowBookProvider.postals!.length;
           borrowBookProvider.isLoading = false;
-          borrowBookProvider.postals = jsonData;
+       //   borrowBookProvider.postals = jsonData;
           borrowBookProvider.notifyListeners();  
-          print(borrowBookProvider.postals);
+          print(borrowBookProvider.postals![0]);
         
          
        }      

@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import 'package:book_hook/controller/BorrowBookController.dart';
 import 'package:book_hook/controller/LoginSignupController.dart';
 import 'package:book_hook/global/AppColors.dart';
 import 'package:book_hook/model/UserModel.dart';
@@ -38,6 +39,7 @@ class _SplashScreenState extends State<SplashScreen> {
       
       UserProvider userProvider = Provider.of<UserProvider>(context, listen: false);
       
+      
     
       if(await getSharedUser()==true){
         print("in if");
@@ -48,6 +50,7 @@ class _SplashScreenState extends State<SplashScreen> {
         print("false");
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
       }
+      await BorrowBookController().getPostals(context);
       
     });
   }
