@@ -85,7 +85,7 @@ class DrawerTray extends StatelessWidget {
             ),
           ),
           ListTile(
-            leading: Image.asset("assets/images/menu.png"),
+            leading: Image.asset("assets/images/home.png"),
             title: Text("Home", 
             // ignore: prefer_const_constructors
             style: TextStyle(
@@ -94,7 +94,7 @@ class DrawerTray extends StatelessWidget {
             onTap: ()=>Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DashboardScreen())),
           ),
           ListTile(
-            leading: Image.asset("assets/images/book1.png"),
+            leading: Image.asset("assets/images/bbook.png"),
             title: Text("Borrow Book", 
             // ignore: prefer_const_constructors
             style: TextStyle(
@@ -103,7 +103,7 @@ class DrawerTray extends StatelessWidget {
             onTap: ()=>Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BorrowBook())),
           ),
           ListTile(
-            leading: Image.asset("assets/images/hand1.png"),
+            leading: Image.asset("assets/images/lbook.png"),
             title: Text("Lend Book", 
             // ignore: prefer_const_constructors
             style: TextStyle(
@@ -112,7 +112,7 @@ class DrawerTray extends StatelessWidget {
             onTap: ()=>Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LendABookPage())),
           ),
           ListTile(
-            leading: Image.asset("assets/images/send1.png"),
+            leading: Image.asset("assets/images/chat.png"),
             title: Text("Chat", 
             // ignore: prefer_const_constructors
             style: TextStyle(

@@ -94,7 +94,14 @@ class _BorrowBookState extends State<BorrowBook> {
                             items: items.map((val) {
                                 return DropdownMenuItem<String>(
                                   value: val,
-                                  child: Text(val),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(val),
+                                      SizedBox(height: 1.h,),
+                                      Divider(height: 5,)
+                                    ],
+                                  ),
                                 );
                               },
                             ).toList(),

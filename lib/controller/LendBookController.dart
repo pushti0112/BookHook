@@ -47,7 +47,8 @@ class LendBookController{
     print("name"+fileName);
     io.File file = io.File(filePath); 
     try{
-      await storage.ref('CoverImage/${usp.user!.UserId}/$fileName').putFile(file);
+      await storage.ref('${usp.user!.UserId}/CoverImage/$fileName').putFile(file);
+      //await storage.ref('CoverImage/${usp.user!.UserId}/$fileName').putFile(file);
     } on firebase_core.FirebaseException catch (e){
       print(e); 
     }
@@ -56,8 +57,8 @@ class LendBookController{
 
    Future<String> getUrlfromStorage(String fileName,BuildContext context) async{
     UserProvider usp = Provider.of<UserProvider>(context, listen: false);
-
-    String imageUrl = await storage.ref('CoverImage/${usp.user!.UserId}/$fileName').getDownloadURL(); 
+    String imageUrl = await storage.ref('${usp.user!.UserId}/CoverImage/$fileName').getDownloadURL(); 
+    // String imageUrl = await storage.ref('CoverImage/${usp.user!.UserId}/$fileName').getDownloadURL(); 
     print("url"+imageUrl);
 
     return imageUrl;
