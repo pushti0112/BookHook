@@ -252,7 +252,8 @@ class LoginSignupController{
               "MODE" : 2  
           },
         ));
-        print("Email: " + usp.user!.EmailID.toString() + "UEmail = " );
+       print("Email: " + usp.user!.EmailID.toString() + "UEmail = " );
+       
         List<dynamic> jsonData = jsonDecode(response.body);
         if(jsonData[0]['Status']==1){
 
