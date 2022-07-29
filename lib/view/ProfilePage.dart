@@ -1,5 +1,5 @@
 //import 'package:flutter/cupertino.dart';
-// ignore_for_file: file_names, library_private_types_in_public_api, prefer_const_constructors, curly_braces_in_flow_control_structures
+// ignore_for_file: file_names, library_private_types_in_public_api, prefer_const_constructors, curly_braces_in_flow_control_structures, unused_import, depend_on_referenced_packages
 
 import 'package:book_hook/controller/BorrowBookController.dart';
 import 'package:book_hook/controller/LoginSignupController.dart';
@@ -22,6 +22,7 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   
+  // File? imageFile;
   XFile? pickedFile;
    String? _dropDownValue;
   final items =<String> [
@@ -92,16 +93,6 @@ super.initState();
                         radius:8.h,
                       ),
                     ),
-                    // ignore: prefer_const_constructors
-                    // Center(
-                    //   child: const Text("Sign up to unlock the full experience",
-                    //       style: TextStyle(
-                    //         fontWeight: FontWeight.normal,
-                    //         color: AppColors.dark2,
-                    //         fontSize: 16,
-                    //       )),
-                    // ),
-                    // ignore: prefer_const_constructors
                     SizedBox(
                       height: 16,
                     ),
@@ -191,7 +182,7 @@ super.initState();
               // ignore: prefer_const_literals_to_create_immutables
               children: [
                 SizedBox(height: 28,),
-                Text("Select Book Cover Image From",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),),
+                Text("Select Profile Image From",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),),
                 SizedBox(height: 16,),
                 Divider(color: Colors.black45, thickness: 0.5,),
                 SizedBox(height: 8,),
