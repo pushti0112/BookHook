@@ -29,7 +29,7 @@ class BorrowBookController{
       
     }
   }
-  getLendBook(BuildContext context) async{
+  getBorrowedBook(BuildContext context) async{
    // getUrlfromStorage("The Lion", context);
     BorrowBookProvider borrowBookProvider = Provider.of<BorrowBookProvider>(context, listen: false);
     borrowBookProvider.isLoading=true;
