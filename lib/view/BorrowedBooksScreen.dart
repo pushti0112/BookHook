@@ -33,7 +33,7 @@ class _BorrowedBooksScreenState extends State<BorrowedBooksScreen> {
       body:
       Consumer<BorrowBookProvider>(
         builder: (BuildContext context, bsp, child) { 
-          return bsp.borrowCount == 0
+          return bsp.borrowedCount == 0
           ? Container(
               
               child: Center(

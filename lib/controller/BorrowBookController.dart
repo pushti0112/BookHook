@@ -5,12 +5,75 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../provider/BorrowBookProvider.dart';
 
 class BorrowBookController{
+  int uid=0;
+  getSharedUser() async{
+    print("in method;");
+    User? user; 
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String? getUser = preferences.getString('sUser');
+   
+    
+    if(getUser!=null){
   
+      Map<String,dynamic> userMap = jsonDecode(getUser);
+      print(userMap);
+      user = User.fromJson(userMap);
+      print(user!.EmailID);
+      print("User ID:" + user!.UserId.toString());
+       uid = user.UserId ?? 0 ;
+      
+    }
+  }
+  getLendBook(BuildContext context) async{
+   // getUrlfromStorage("The Lion", context);
+    BorrowBookProvider borrowBookProvider = Provider.of<BorrowBookProvider>(context, listen: false);
+    borrowBookProvider.isLoading=true;
+    borrowBookProvider.notifyListeners();
+    await getSharedUser();
+    print("uid"+uid.toString());
+    String username = 'Uwindsor';
+    String password = 'MAC@2022';
+    String basicAuth = 'Basic ' + base64Encode(utf8.encode('$username:$password'));
 
+    http.Response response = await http.post(
+        Uri.parse(
+        "http://bookhookase-001-site1.ctempurl.com/api/BookShelf/USP_CRUD_LendBook"),
+        headers: <String, String>{
+         // "Accept": "application/json",
+          "content-type": "application/json",
+          "authorization": basicAuth
+        },  
+        body: jsonEncode(
+          <String, dynamic>{
+            "UserId" : uid,
+            "MODE":5
+        }
+        ));
+        if(response.body.isNotEmpty){
+        
+        List<dynamic> jsonData = jsonDecode(response.body);
+        print("Status");
+        print(jsonData[0]['Status']);
+        if(jsonData[0]['Status']==0){
+          borrowBookProvider.borrowedCount = 0;
+          borrowBookProvider.isLoading = false;
+          borrowBookProvider.notifyListeners();
+        }
+        else{
+          borrowBookProvider.borrowedCount = jsonData.length;
+          borrowBookProvider.isLoading = false;
+          borrowBookProvider.borrowedBooks = jsonData;
+          borrowBookProvider.notifyListeners();  
+        }
+         
+        }      
+
+  }
   getPostals(BuildContext context) async{
     // ignore: unused_local_variable
     print("in get postals;");
