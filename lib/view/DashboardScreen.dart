@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:book_hook/controller/BorrowBookController.dart';
 import 'package:book_hook/global/AppColors.dart';
 import 'package:book_hook/model/UserModel.dart';
+import 'package:book_hook/provider/BorrowBookProvider.dart';
 import 'package:book_hook/provider/LendBookProvider.dart';
 import 'package:book_hook/provider/UserProvider.dart';
 import 'package:book_hook/view/BorrowedBooksScreen.dart';
@@ -39,6 +40,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) async{
 
       await LendBookController().getLendBook(context);
+      await BorrowBookController().getBorrowedBook(context);
        
   });
     
@@ -48,8 +50,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
   //  LendBookProvider lendBookProvider = Provider.of<LendBookProvider>(context, listen: false);
-    return Consumer<LendBookProvider>(
-      builder: (BuildContext context, lsp , child) {
+    return Consumer2<LendBookProvider, BorrowBookProvider>(
+      builder: (BuildContext context, lsp, bsp, child) {
         return  lsp.isLoading? Container(
           color: AppColors.light3,
           width: double.maxFinite,
@@ -90,7 +92,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    countWidget(lendBookProvider: lsp),
+                    countWidget(lendBookProvider: lsp, borrowBookProvider: bsp,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -122,11 +124,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
 class countWidget extends StatelessWidget {
   const countWidget({
     Key? key,
-    required this.lendBookProvider,
+    required this.lendBookProvider, required this.borrowBookProvider,
     
   }) : super(key: key);
 
   final LendBookProvider lendBookProvider;
+  final BorrowBookProvider borrowBookProvider;
 
 
   @override
@@ -137,7 +140,7 @@ class countWidget extends StatelessWidget {
       // ignore: prefer_const_literals_to_create_immutables
       children: [
         InkWell(child: dashboardCard(text: "Lended", count: lendBookProvider.lendCount??0,id: 1),onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context) => LendedBookHistoryScreen())),),
-        InkWell(child: dashboardCard(text: "Borrowed",count: 0, id: 2),onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context) => BorrowedBooksScreen()),)),
+        InkWell(child: dashboardCard(text: "Borrowed",count: borrowBookProvider.borrowedCount??0, id: 2),onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context) => BorrowedBooksScreen()),)),
       ],
     );       
   }
