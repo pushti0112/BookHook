@@ -47,5 +47,41 @@ class BorrowBookController{
          
        }      
 
-  }  
+  } 
+  searchBookList(BuildContext context) async{
+    BorrowBookProvider borrowBookProvider = Provider.of<BorrowBookProvider>(context, listen: false);
+    borrowBookProvider.isLoading=true;
+    borrowBookProvider.notifyListeners();
+    
+    String username = 'Uwindsor';
+    String password = 'MAC@2022';
+    String basicAuth = 'Basic ' + base64Encode(utf8.encode('$username:$password'));
+
+    http.Response response = await http.post(
+        Uri.parse(
+        "http://bookhookase-001-site1.ctempurl.com/api/BookShelf/USP_Fetch_DistanceBook"),
+        headers: <String, String>{
+         // "Accept": "application/json",
+          "content-type": "application/json",
+          "authorization": basicAuth
+        },
+    );
+      if(response.body.isNotEmpty){
+        print(response);
+        List<dynamic> jsonData = jsonDecode(response.body);
+
+        jsonData.forEach((element) {
+          borrowBookProvider.postals.add(element['POSTAL_CODE']);
+        });
+          borrowBookProvider.postalCount = borrowBookProvider.postals.length;
+          borrowBookProvider.isLoading = false;
+       //   borrowBookProvider.postals = jsonData;
+          borrowBookProvider.notifyListeners();  
+          print(borrowBookProvider.postals[0]);
+        
+         
+       }      
+
+
+  } 
 }

@@ -138,9 +138,7 @@ class LoginSignupController{
         //BUG: API Returns Failed Status
         body: jsonEncode(
           <String, dynamic>{
-            "UserID" : uid,
-            "Password":newPass,
-            "MODE" : 3
+           "MODE" : 5
           }
         ));
         print("Final = " + response.body);
