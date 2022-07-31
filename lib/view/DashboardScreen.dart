@@ -2,10 +2,15 @@
 
 import 'dart:async';
 
+import 'package:book_hook/controller/BorrowBookController.dart';
 import 'package:book_hook/global/AppColors.dart';
 import 'package:book_hook/model/UserModel.dart';
+import 'package:book_hook/provider/BorrowBookProvider.dart';
+import 'package:book_hook/provider/LendBookProvider.dart';
 import 'package:book_hook/provider/UserProvider.dart';
+import 'package:book_hook/view/BorrowedBooksScreen.dart';
 import 'package:book_hook/view/LendBookScreen.dart';
+import 'package:book_hook/view/LendedBookHistoryScreen.dart';
 import 'package:book_hook/view/LoginScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -35,6 +40,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) async{
 
       await LendBookController().getLendBook(context);
+      await BorrowBookController().getBorrowedBook(context);
+       
   });
     
     
@@ -42,10 +49,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
   @override
   Widget build(BuildContext context) {
-    UserProvider userProvider = Provider.of<UserProvider>(context, listen: false);
-    return Consumer<UserProvider>(
-      builder: (BuildContext context, usp , child) {
-        return  usp.isLoading? Container(
+  //  LendBookProvider lendBookProvider = Provider.of<LendBookProvider>(context, listen: false);
+    return Consumer2<LendBookProvider, BorrowBookProvider>(
+      builder: (BuildContext context, lsp, bsp, child) {
+        return  lsp.isLoading? Container(
           color: AppColors.light3,
           width: double.maxFinite,
           height: double.maxFinite,
@@ -75,33 +82,34 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   ),
                 ),
             ),
-            Container(
-              height: 70.h,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(topLeft: Radius.circular(5.h), topRight: Radius.circular(5.h)),
-                color: AppColors.light3,
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  
-                  countWidget(userProvider: userProvider),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        height: 24.h,
-                        width: 24.h,
-                        child: Center(
-                          child: SvgPicture.asset(
-                            "assets/images/read.svg"
+            Expanded
+            (
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(topLeft: Radius.circular(5.h), topRight: Radius.circular(5.h)),
+                  color: AppColors.light3,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    countWidget(lendBookProvider: lsp, borrowBookProvider: bsp,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          height: 24.h,
+                          width: 24.h,
+                          child: Center(
+                            child: SvgPicture.asset(
+                              "assets/images/read.svg"
+                            ),
                           ),
                         ),
-                      ),
-                      SizedBox(width: 30,),
-                    ],
-                  ),
-                ],
+                        SizedBox(width: 30,),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
@@ -116,11 +124,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
 class countWidget extends StatelessWidget {
   const countWidget({
     Key? key,
-    required this.userProvider,
+    required this.lendBookProvider, required this.borrowBookProvider,
     
   }) : super(key: key);
 
-  final UserProvider userProvider;
+  final LendBookProvider lendBookProvider;
+  final BorrowBookProvider borrowBookProvider;
 
 
   @override
@@ -130,8 +139,8 @@ class countWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       // ignore: prefer_const_literals_to_create_immutables
       children: [
-        dashboardCard(text: "Lended", count: userProvider.lendCount??0,id: 1),
-        dashboardCard(text: "Borrowed",count: 0, id: 2),
+        InkWell(child: dashboardCard(text: "Lended", count: lendBookProvider.lendCount??0,id: 1),onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context) => LendedBookHistoryScreen())),),
+        InkWell(child: dashboardCard(text: "Borrowed",count: borrowBookProvider.borrowedCount??0, id: 2),onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context) => BorrowedBooksScreen()),)),
       ],
     );       
   }

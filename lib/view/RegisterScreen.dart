@@ -12,15 +12,27 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
 
-  TextEditingController fNameC = TextEditingController(text: "dhruvi");
-  TextEditingController lNameC = TextEditingController(text: "Shah");
-  TextEditingController PhnNoC = TextEditingController(text: "9059778531");
-  TextEditingController emailIdC = TextEditingController(text: "ds@gmail.com");
-  TextEditingController passC = TextEditingController(text: "ds2@2222U");
-  TextEditingController cPassC = TextEditingController(text: "ds@2222U");
-  TextEditingController cityC = TextEditingController(text: "Windsor");
-  TextEditingController provinceC = TextEditingController(text: "Ontario");
-  
+  TextEditingController fNameC = TextEditingController();
+  TextEditingController lNameC = TextEditingController();
+  TextEditingController PhnNoC = TextEditingController();
+  TextEditingController emailIdC = TextEditingController();
+  TextEditingController passC = TextEditingController();
+  TextEditingController cPassC = TextEditingController();
+  TextEditingController ansC = TextEditingController();
+  TextEditingController cityC = TextEditingController();
+  TextEditingController provinceC = TextEditingController();
+  String? _dropDownValue;
+  final items =<String> [
+     "In what city were you born?", 
+    "What is the name of your favorite pet?",
+    "What is your mother's maiden name",     
+    "What high school did you attend?",
+    "What is the name of your first school?",
+    "What was the make of your first car?",
+    "What was your favorite food as a child?",
+    "Where did you meet your spouse?"
+  ];
+  int index=0;
 
 
   @override
@@ -100,6 +112,45 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     SizedBox(
                       height: 16,
                     ),
+                    DecoratedBox(
+                        decoration:  BoxDecoration(
+                          color: Colors.grey[200],
+                          border: Border.all(color: Colors.black38),
+                          borderRadius: BorderRadius.circular(6),
+                         ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 6),
+                          child: DropdownButton(
+                            hint: _dropDownValue == null
+                                ? Text('Seccurity Question', style: TextStyle(decoration: TextDecoration.none),)
+                                : Text(_dropDownValue!,style: TextStyle(color:Colors.black),),
+                            isExpanded: true,
+                            iconSize: 30.0,
+                            items: items.map((val) {
+                                return DropdownMenuItem<String>(
+                                  value: val,
+                                  child: Text(val),
+                                );
+                              },
+                            ).toList(),
+                            onChanged: (newval) {
+                              setState(
+                                () {
+                                  _dropDownValue = newval.toString();
+                                   index = items.indexOf(_dropDownValue!);
+                                },
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                      height: 16,
+                    ),
+                    TextFormField("Answer",ansC),
+                    SizedBox(
+                      height: 16,
+                    ),
                     TextFormField("City",cityC),
                     SizedBox(
                       height: 16,
@@ -120,7 +171,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       padding: EdgeInsets.all(16)),
                   onPressed: () async{
                     if(passC.text == cPassC.text)
-                      LoginSignupController().registerUser(fNameC.text, lNameC.text, PhnNoC.text, emailIdC.text, passC.text, provinceC.text, cityC.text,context);
+                      LoginSignupController().registerUser(fNameC.text, lNameC.text, PhnNoC.text, emailIdC.text, passC.text,index+1, ansC.text, provinceC.text, cityC.text,context);
                     else{
                       final snackBar = SnackBar(
                         duration: Duration(seconds: 3),

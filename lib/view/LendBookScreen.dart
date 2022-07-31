@@ -1,4 +1,6 @@
 // ignore_for_file: prefer_const_constructors
+
+import 'dart:io';
 import 'package:book_hook/controller/LendBookController.dart';
 import 'package:book_hook/widget/drawer_tray.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +8,8 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import '../global/AppColors.dart';
 import 'package:sizer/sizer.dart';
+import 'package:image_picker/image_picker.dart';
+
 
 class LendABookPage extends StatefulWidget {
   const LendABookPage({Key? key}) : super(key: key);
@@ -25,6 +29,23 @@ class _LendABookPageState extends State<LendABookPage> {
     'Horror', 'Romance', 'Science', 'Short Stories'
   ];
   int index=0;
+  File? imageFile;
+  XFile? pickedFile;
+  
+
+//  pickImage() async {
+//    pickedFile = await ImagePicker().pickImage(source: ImageSource.camera, preferredCameraDevice: CameraDevice.front);
+//   //if(pickedFile==null) return null;
+//   if (pickedFile != null) {
+//       setState(() {
+//       //  imageFile = File(pickedFile!.path);
+//         print(pickedFile!.path);
+//        // print("after setstate");
+//       //  print(imageFile!.path);
+//       });
+//   }
+// }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -146,31 +167,42 @@ class _LendABookPageState extends State<LendABookPage> {
                         ]
                       ),
                       SizedBox(height: 16),
-                      Container(
-                        width: double.maxFinite,
-                        child: ElevatedButton(
-                          child: Text("Add"),
-                          style: ElevatedButton.styleFrom(
-                              primary: AppColors.primary,
-                              padding: EdgeInsets.all(16)),
-                          onPressed: () async{
-                            if(titleC.text.isEmpty || descC.text.isEmpty || _dropDownValue==null){
-                              final snackBar = SnackBar(
-                                duration: Duration(seconds: 3),
-                                behavior: SnackBarBehavior.floating,
-                                content: const Text('Enter data for all fields'),
-                                margin: EdgeInsets.symmetric(vertical: 16,horizontal: 8),
-                                backgroundColor: Colors.black87,
-                              );
-                              ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                            }
-                            else
-                              await LendBookController().addBook(context,titleC.text,descC.text,index);
-                          }
-                        )
-                      ),
+                      imageFile!=null? Text('Image Prieview',style: TextStyle(fontSize: 16),): Container(),
+                      SizedBox(height: 16),
+                      imageFile!=null?Container(
+                        height: 24.h,
+                        width: 24.w,
+                  child: Image.file(imageFile!,fit: BoxFit.contain),
+                  
+                ):Container(),
                     ],
                   ),
+                  
+                ),
+                
+                //BTN
+                Container(
+                  width: double.maxFinite,
+                  child: ElevatedButton(
+                    child: Text("Add"),
+                    style: ElevatedButton.styleFrom(
+                        primary: AppColors.primary,
+                        padding: EdgeInsets.all(16)),
+                    onPressed: ()async{
+                      if(titleC.text.isEmpty || descC.text.isEmpty || _dropDownValue==null || pickedFile==null){
+                        final snackBar = SnackBar(
+                          duration: Duration(seconds: 3),
+                          behavior: SnackBarBehavior.floating,
+                          content: const Text('Enter data for all fields'),
+                          margin: EdgeInsets.symmetric(vertical: 16,horizontal: 8),
+                          backgroundColor: Colors.black87,
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      }
+                      else
+                        await LendBookController().addBook(context,titleC.text,descC.text,index+1,pickedFile!.path);
+                    },
+                  )
                 ),
               ],
             ),
@@ -203,11 +235,28 @@ class _LendABookPageState extends State<LendABookPage> {
                 SizedBox(height: 16,),
                 Divider(color: Colors.black45, thickness: 0.5,),
                 SizedBox(height: 8,),
-                Text("Gallery",style: TextStyle(color: AppColors.primary,fontSize: 16),),
+                InkWell(onTap: ()async{
+                  pickedFile = null;
+                  pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+                  setState(() {
+                    imageFile = File(pickedFile!.path);
+                  });
+                  Navigator.pop(context);
+                  
+                },
+                  child: Text("Gallery",style: TextStyle(color: AppColors.primary,fontSize: 16),)),
                 SizedBox(height: 8,),
                 Divider(color: Colors.black45, thickness: 0.5,),
                 SizedBox(height: 8,),
-                Text("Camera",style: TextStyle(color: AppColors.primary,fontSize: 16),),
+                InkWell(onTap: () async{
+                pickedFile = null;
+                pickedFile = await ImagePicker().pickImage(source: ImageSource.camera, preferredCameraDevice: CameraDevice.front);
+                setState(() {
+                    imageFile = File(pickedFile!.path);
+                  });
+                Navigator.pop(context);
+                },
+                child: Text("Camera",style: TextStyle(color: AppColors.primary,fontSize: 16),)),
                 SizedBox(height: 16,),
         
               ],

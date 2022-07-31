@@ -46,6 +46,11 @@ dev_dependencies:
   dependencies:
   shared_preferences: ^2.0.15
   cool_alert: ^1.1.0
+  image_picker: ^0.8.5+3
+  firebase_storage: ^10.3.3
+  firebase_core: ^1.20.0
+  cached_network_image: ^3.2.1
+  searchfield: ^0.6.7
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
