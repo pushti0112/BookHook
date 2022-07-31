@@ -165,7 +165,7 @@ class BorrowBookController{
 
 
   } 
-  borrowBook(BuildContext context, int uid, int? lbookid)async{
+  borrowBook(BuildContext context, int? uid, int? lbookid)async{
     BorrowBookProvider borrowBookProvider = Provider.of<BorrowBookProvider>(context, listen: false);
     borrowBookProvider.isLoading=true;
     borrowBookProvider.notifyListeners();
@@ -195,7 +195,8 @@ class BorrowBookController{
       //  print(response);
         List<dynamic> jsonData = jsonDecode(response.body);
         print(jsonData.toString());
-        print(jsonData[0]['status']);
+        print("UserID = " + uid.toString());
+        print("BookID = " + lbookid.toString());
         if(jsonData[0]['Status']==1)
         {
                 CoolAlert.show(

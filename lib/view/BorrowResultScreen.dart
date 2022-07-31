@@ -90,7 +90,7 @@ class _BorrowResultScreenState extends State<BorrowResultScreen> {
                   text: "You want to borrow this book",
                   onConfirmBtnTap: ()async{
                    Navigator.pop(context); 
-                   await BorrowBookController().borrowBook(context, bp.searchBooks[i]["LendBookID"], userProvider.user!.UserId);
+                   await BorrowBookController().borrowBook(context, userProvider.user!.UserId, bp.searchBooks[i]["LendBookID"]);
                    
                    // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DashboardScreen()));
                   },

@@ -13,6 +13,7 @@ import '../global/AppColors.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:sizer/sizer.dart';
 import 'package:provider/provider.dart';
+import 'package:cool_alert/cool_alert.dart';
 class BorrowedBooksScreen extends StatefulWidget {
 
   
@@ -109,50 +110,70 @@ class _BorrowedBooksScreenState extends State<BorrowedBooksScreen> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    height: 15.h,
-                    width: 25.w,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: Image.asset("assets/images/samplebook.jpg"),
-                      // child: CachedNetworkImage(
-                      //   imageUrl: "assets/images/samplebook.jpg",width: 10,height: 20,
-                      //   //borrowBookProvider.borrowedBooks![i]['CoverImagePath'],
-                      //   placeholder: (context, url) => Padding(padding: EdgeInsets.symmetric(vertical: 52,horizontal: 40),child: CircularProgressIndicator(color: AppColors.primary,strokeWidth: 2,)),
-                      //   errorWidget: (context, url, error) => Icon(Icons.error),
-                      //   fit: BoxFit.fill,
-                      //),
-                    ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 16,vertical: 24),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(borrowBookProvider.borrowedBooks![i]["BookTitle"],
-                        style: TextStyle(
-                          fontSize: 16,
-                        ),),
-                        SizedBox(height: 8,),
-                        Row( 
-                          
-                          children: [
-                             Text("Lended By: ",style: TextStyle(fontSize: 16),),
-                             Text(borrowBookProvider.borrowedBooks![i]["LenderName"]== null ? "None": borrowBookProvider.borrowedBooks![i]["LenderName"],
-                            style: TextStyle(
-                              fontSize: 16,
-                            ),),   
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(width: 4.w,),
-                  Center(
+                  Flexible(
+                    flex: 2,
                     child: Container(
-                      padding: EdgeInsets.symmetric(vertical: 44, horizontal: 10),
-                      child: Image.asset("assets/images/chat.png"),
+                      height: 15.h,
+                      width: 25.w,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: Image.asset("assets/images/samplebook.jpg"),
+                        // child: CachedNetworkImage(
+                        //   imageUrl: "assets/images/samplebook.jpg",width: 10,height: 20,
+                        //   //borrowBookProvider.borrowedBooks![i]['CoverImagePath'],
+                        //   placeholder: (context, url) => Padding(padding: EdgeInsets.symmetric(vertical: 52,horizontal: 40),child: CircularProgressIndicator(color: AppColors.primary,strokeWidth: 2,)),
+                        //   errorWidget: (context, url, error) => Icon(Icons.error),
+                        //   fit: BoxFit.fill,
+                        //),
+                      ),
+                    ),
+                  ),
+                  Flexible(
+                    flex: 5,
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 16,vertical: 24),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(borrowBookProvider.borrowedBooks![i]["BookTitle"],
+                          style: TextStyle(
+                            fontSize: 16,
+                          ),),
+                          SizedBox(height: 8,),
+                          Row( 
+                            
+                            children: [
+                               Text("Lended By: ",style: TextStyle(fontSize: 16),),
+                               Text(borrowBookProvider.borrowedBooks![i]["LenderName"]== null ? "None": borrowBookProvider.borrowedBooks![i]["LenderName"],
+                              style: TextStyle(
+                                fontSize: 16,
+                              ),),   
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Center(
+                    child: InkWell(
+                      onTap: (){
+                        CoolAlert.show(
+                          context: context,
+                          type: CoolAlertType.info,
+                          width: 75,
+                          title: 'Hey there!',
+                          text: "Chat feature will be arriving super soon!",
+                          onConfirmBtnTap: ()async{
+                          Navigator.pop(context);
+                          // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DashboardScreen()));
+                          },
+                        );
+                      },
+                      child: Container(
+                        padding: EdgeInsets.symmetric(vertical: 44, horizontal: 0),
+                        child: Image.asset("assets/images/chat.png"),
+                      ),
                     ),
                   )
                 ],
