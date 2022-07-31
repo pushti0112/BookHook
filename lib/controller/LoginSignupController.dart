@@ -180,7 +180,7 @@ class LoginSignupController{
             "Password": pass,
             "StateName": state,
             "CityName": city,
-            "ZipID": 202076,
+            "ZipID": 2,
             "SecurityQuestionID" : qid,
             "SecurityAnswer" : ans,
             "MODE" : 1

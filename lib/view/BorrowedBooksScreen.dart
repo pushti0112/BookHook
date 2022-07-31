@@ -51,8 +51,7 @@ class _BorrowedBooksScreenState extends State<BorrowedBooksScreen> {
           print("BorrowedBooksCount = " + bsp.borrowedCount.toString()); 
           return bsp.borrowedCount == 0
           ? Container(
-              
-              child: Center(
+                child: Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -75,7 +74,7 @@ class _BorrowedBooksScreenState extends State<BorrowedBooksScreen> {
                     itemBuilder: (_, i) =>bsp.borrowedBooks!.length==null?Container()
                     :BookCard(i,bsp),
                     separatorBuilder:(_, i) => SizedBox(height: 8,),
-                     itemCount: bsp.borrowedBooks!.length 
+                     itemCount: bsp.borrowedBooks.length 
                     //  lsp.lendCount?.toInt() ?? 0,
                   ),
                   ),

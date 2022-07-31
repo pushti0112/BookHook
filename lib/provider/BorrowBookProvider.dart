@@ -6,4 +6,5 @@ class BorrowBookProvider extends ChangeNotifier{
   bool isLoading = false;
   List<String> postals = [] ;
   List<dynamic> borrowedBooks = [];
+  List<dynamic> searchBooks = [];
 }

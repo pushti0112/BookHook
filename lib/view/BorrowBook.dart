@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:ffi';
+
 import 'package:book_hook/controller/BorrowBookController.dart';
 import 'package:book_hook/provider/BorrowBookProvider.dart';
 import 'package:book_hook/provider/UserProvider.dart';
@@ -28,7 +30,21 @@ class _BorrowBookState extends State<BorrowBook> {
     'Horror', 'Romance', 'Science', 'Short Stories'
   ];
   int index=0;
+  @override
+  void initState(){
+    
+    // TODO: implement initState
+    print("In INIT");
+    WidgetsBinding.instance.addPostFrameCallback((_) async{
 
+     // await LendBookController().getLendBook(context);
+    //  await BorrowBookController().searchBookList(context);
+       
+  });
+    
+    
+    super.initState();
+  }
  
   @override
   Widget build(BuildContext context) {
@@ -39,7 +55,8 @@ class _BorrowBookState extends State<BorrowBook> {
     TextEditingController bTitle = TextEditingController();
     TextEditingController fNameC = TextEditingController(text: userProvider.user!.FirstName);
     TextEditingController lNameC = TextEditingController(text: userProvider.user!.LastName);
-    TextEditingController PhnNoC = TextEditingController(text: userProvider.user!.PhoneNumber);
+    TextEditingController zipid = TextEditingController();
+    int postalid;
     
     return Consumer<BorrowBookProvider>(
       builder: (BuildContext context, borrowBookProvider, child) { 
@@ -141,7 +158,7 @@ class _BorrowBookState extends State<BorrowBook> {
                           }
                         return null;
                         },
-    
+                        controller:zipid ,
                         searchInputDecoration: InputDecoration(
                           fillColor: Colors.grey[200],
                           filled: true,
@@ -188,7 +205,11 @@ class _BorrowBookState extends State<BorrowBook> {
                         primary: AppColors.primary,
                         padding: EdgeInsets.all(16)),
                     onPressed: () async{
+                      print(borrowBookProvider.postals.indexOf(zipid.text));
+                      postalid = borrowBookProvider.postals.indexOf(zipid.text)+1;
+                      await BorrowBookController().searchBookList(context, (index+1),postalid,bTitle.text,int.parse(radius.text));
                       Navigator.push(context, MaterialPageRoute(builder: (context) => BorrowResultScreen()));
+                        
                         // final snackBar = SnackBar(
                         //   duration: Duration(seconds: 3),
                         //   behavior: SnackBarBehavior.floating,

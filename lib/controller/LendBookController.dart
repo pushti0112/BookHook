@@ -43,8 +43,8 @@ class LendBookController{
 
   uploadFiletoStorage(String filePath, String fileName,BuildContext context)async{
     UserProvider usp = Provider.of<UserProvider>(context, listen: false);
-    print("path"+ filePath);
-    print("name"+fileName);
+    // print("path"+ filePath);
+    // print("name"+fileName);
     io.File file = io.File(filePath); 
     try{
       await storage.ref('${usp.user!.UserId}/CoverImage/$fileName').putFile(file);
@@ -59,7 +59,7 @@ class LendBookController{
     UserProvider usp = Provider.of<UserProvider>(context, listen: false);
     String imageUrl = await storage.ref('${usp.user!.UserId}/CoverImage/$fileName').getDownloadURL(); 
     // String imageUrl = await storage.ref('CoverImage/${usp.user!.UserId}/$fileName').getDownloadURL(); 
-    print("url"+imageUrl);
+    // print("url"+imageUrl);
 
     return imageUrl;
 
@@ -98,11 +98,11 @@ class LendBookController{
         }
         ));
         List<dynamic> jsonData = jsonDecode(response.body);
-        print(title+desc+index.toString());
+        // print(title+desc+index.toString());
 
         if(jsonData!=null){
-          print(jsonData[0]);
-          print(jsonData[0]['Status']);
+          // print(jsonData[0]);
+          // print(jsonData[0]['Status']);
           if(jsonData[0]['Status'] == 1)
           {
             
@@ -161,8 +161,8 @@ class LendBookController{
         if(response.body.isNotEmpty){
         
         List<dynamic> jsonData = jsonDecode(response.body);
-        print("Status");
-        print(jsonData[0]['Status']);
+        // print("Status");
+        // print(jsonData[0]['Status']);
         if(jsonData[0]['Status']==0){
           lendBookProvider.lendCount = 0;
           lendBookProvider.isLoading = false;
