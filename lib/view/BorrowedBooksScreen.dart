@@ -117,14 +117,14 @@ class _BorrowedBooksScreenState extends State<BorrowedBooksScreen> {
                       width: 25.w,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(8),
-                        child: Image.asset("assets/images/samplebook.jpg"),
-                        // child: CachedNetworkImage(
-                        //   imageUrl: "assets/images/samplebook.jpg",width: 10,height: 20,
-                        //   //borrowBookProvider.borrowedBooks![i]['CoverImagePath'],
-                        //   placeholder: (context, url) => Padding(padding: EdgeInsets.symmetric(vertical: 52,horizontal: 40),child: CircularProgressIndicator(color: AppColors.primary,strokeWidth: 2,)),
-                        //   errorWidget: (context, url, error) => Icon(Icons.error),
-                        //   fit: BoxFit.fill,
-                        //),
+                       // child: Image.asset("assets/images/samplebook.jpg"),
+                        child: CachedNetworkImage(
+                          imageUrl: //"assets/images/samplebook.jpg",width: 10,height: 20,
+                          borrowBookProvider.borrowedBooks[i]['CoverImagePath'],
+                          placeholder: (context, url) => Padding(padding: EdgeInsets.symmetric(vertical: 52,horizontal: 40),child: CircularProgressIndicator(color: AppColors.primary,strokeWidth: 2,)),
+                          errorWidget: (context, url, error) => Icon(Icons.error),
+                          fit: BoxFit.fill,
+                        ),
                       ),
                     ),
                   ),
@@ -136,7 +136,7 @@ class _BorrowedBooksScreenState extends State<BorrowedBooksScreen> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(borrowBookProvider.borrowedBooks![i]["BookTitle"],
+                          Text(borrowBookProvider.borrowedBooks[i]["BookTitle"],
                           style: TextStyle(
                             fontSize: 16,
                           ),),
@@ -145,7 +145,7 @@ class _BorrowedBooksScreenState extends State<BorrowedBooksScreen> {
                             
                             children: [
                                Text("Lended By: ",style: TextStyle(fontSize: 16),),
-                               Text(borrowBookProvider.borrowedBooks![i]["LenderName"]== null ? "None": borrowBookProvider.borrowedBooks![i]["LenderName"],
+                               Text(borrowBookProvider.borrowedBooks[i]["LenderName"]== null ? "None": borrowBookProvider.borrowedBooks[i]["LenderName"],
                               style: TextStyle(
                                 fontSize: 16,
                               ),),   
@@ -171,7 +171,7 @@ class _BorrowedBooksScreenState extends State<BorrowedBooksScreen> {
                         );
                       },
                       child: Container(
-                        padding: EdgeInsets.symmetric(vertical: 44, horizontal: 0),
+                        padding: EdgeInsets.symmetric(vertical: 44, horizontal: 8),
                         child: Image.asset("assets/images/chat.png"),
                       ),
                     ),
